@@ -13,9 +13,11 @@ DS DIGITAL STUDIO — VERSION 2 (GITHUB PAGES)
 - Polices réellement chargées (Inter + Instrument Serif). Avant, "Inter"
   était déclarée dans le CSS mais jamais téléchargée : le site s'affichait
   avec la police système.
-- Section "Packs sites web" : 3 cartes tarifaires (Essentiel / Pro / Premium),
-  le Pack Pro visuellement mis en avant avec badge "Le plus choisi".
-  Tous les boutons pointent vers la section Contact.
+- Section "Packs sites web" : carrousel de 3 cartes tarifaires
+  (Essentiel / Pro / Premium). Le Pack Pro s'affiche au centre au
+  chargement, les deux autres dépassent sur les côtés en plus clair.
+  Flèches, points, clavier et balayage du doigt. Tous les boutons
+  pointent vers la section Contact.
 - Nouvelle section FAQ et bandeau d'appel à l'action.
 - Menu mobile plein écran, barre de progression de lecture, bouton retour en haut.
 - SEO : Open Graph, Twitter Card, données structurées entreprise + FAQ,
@@ -113,7 +115,16 @@ Chaque pack est un bloc <article class="pack">.
     entoure-la de <i>...</i>.
   - La carte mise en avant porte la classe "pack-featured"
     et contient <span class="pack-badge">Le plus choisi</span>.
-    Ne mets cette classe que sur UNE seule carte.
+    Ne mets cette classe que sur UNE seule carte : c'est elle que
+    le carrousel affiche au centre à l'ouverture de la page.
+
+  - Si tu ajoutes ou retires un pack, ajoute ou retire aussi un
+    <button class="packs-dot"> dans le bloc "packs-dots" juste
+    en dessous, sinon il manquera un point de navigation.
+
+  - Largeur des cartes : variable --pack-w dans style.css
+    (.packs-slider). Augmente la valeur maximale pour des cartes
+    plus larges et des voisines moins visibles sur les côtés.
 
 Si tu changes un prix, pense à le changer aussi dans les données
 structurées en haut du fichier (bloc "hasOfferCatalog", champ minPrice)

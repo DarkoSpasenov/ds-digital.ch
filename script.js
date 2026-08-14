@@ -177,6 +177,73 @@
     show(0);
   }
 
+  /* ---------- 4 ter. Carrousel des packs ---------- */
+  const track = $('#packsTrack');
+  if (track) {
+    const cards = $$('.pack', track);
+    const pDots = $$('.packs-dot');
+    let active = -1;
+    let raf = null;
+
+    function nearest() {
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      cards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+        if (d < dist) { dist = d; best = i; }
+      });
+      return best;
+    }
+
+    function mark(i) {
+      if (i === active) return;
+      active = i;
+      cards.forEach((c, n) => c.classList.toggle('is-active', n === i));
+      pDots.forEach((d, n) => {
+        d.classList.toggle('active', n === i);
+        d.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+    }
+
+    function center(i, smooth) {
+      const c = cards[(i + cards.length) % cards.length];
+      if (!c) return;
+      const left = c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2;
+      track.scrollTo({ left: left, behavior: smooth === false || reduced ? 'auto' : 'smooth' });
+      mark((i + cards.length) % cards.length);
+    }
+
+    track.addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = null; mark(nearest()); });
+    }, { passive: true });
+
+    $$('.packs-arrow').forEach(btn => {
+      btn.addEventListener('click', () => {
+        center(active + (btn.dataset.packs === 'next' ? 1 : -1));
+      });
+    });
+    pDots.forEach((d, n) => d.addEventListener('click', () => center(n)));
+
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); center(active + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); center(active - 1); }
+    });
+
+    /* démarrage sur le pack recommandé (celui du milieu) */
+    const start = Math.max(0, cards.findIndex(c => c.classList.contains('pack-featured')));
+    const init = () => center(start, false);
+    init();
+    requestAnimationFrame(init);
+    window.addEventListener('load', init, { once: true });
+
+    let rz = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(rz);
+      rz = setTimeout(() => center(active, false), 180);
+    });
+  }
+
   /* ---------- 5. Coordonnées injectées depuis site-config.js ---------- */
   if (EMAIL) {
     $$('a[href^="mailto:"]').forEach(a => {

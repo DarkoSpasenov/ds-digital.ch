@@ -244,10 +244,12 @@
         <p>Chaque pack correspond à un besoin réel. Vous savez ce qui est inclus avant de démarrer, sans surprise en cours de projet.</p>
       </div>
 
-      <div class="packs">
+      <div class="packs-slider reveal">
+        <div class="packs" id="packsTrack" tabindex="0" role="group"
+             aria-roledescription="carrousel" aria-label="Packs de création de sites web">
 
         <!-- ---------- PACK 1 ---------- -->
-        <article class="pack reveal">
+        <article class="pack">
           <div class="pack-head">
             <span class="pack-name">Essentiel</span>
             <p class="pack-for">Pour indépendants et petites entreprises souhaitant une présence professionnelle en ligne.</p>
@@ -272,7 +274,7 @@
         </article>
 
         <!-- ---------- PACK 2 — mis en avant ---------- -->
-        <article class="pack pack-featured reveal delay-1">
+        <article class="pack pack-featured">
           <span class="pack-badge">Le plus choisi</span>
           <div class="pack-head">
             <span class="pack-name">Pro</span>
@@ -303,7 +305,7 @@
         </article>
 
         <!-- ---------- PACK 3 ---------- -->
-        <article class="pack reveal delay-2">
+        <article class="pack">
           <div class="pack-head">
             <span class="pack-name">Premium</span>
             <p class="pack-for">Pour les entreprises ayant besoin d’un site plus complet avec des fonctionnalités avancées.</p>
@@ -330,6 +332,21 @@
           <a class="btn btn-dark pack-cta" href="#contact">Parler de mon projet <span>↗</span></a>
         </article>
 
+        </div>
+
+        <div class="packs-controls">
+          <button class="packs-arrow" type="button" data-packs="prev" aria-label="Pack précédent" aria-controls="packsTrack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <div class="packs-dots">
+            <button class="packs-dot" type="button" aria-label="Pack Essentiel"></button>
+            <button class="packs-dot active" type="button" aria-label="Pack Pro"></button>
+            <button class="packs-dot" type="button" aria-label="Pack Premium"></button>
+          </div>
+          <button class="packs-arrow" type="button" data-packs="next" aria-label="Pack suivant" aria-controls="packsTrack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="pack-notes reveal">
@@ -338,6 +355,96 @@
       </div>
     </div>
   </section>
+
+  <!-- ================= RÉALISATIONS ================= -->
+  <section class="section section-soft" id="realisations">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="kicker">02 — Réalisations</span>
+          <h2>Des projets concrets. Une vitrine qui grandit.</h2>
+        </div>
+        <p>Chaque carte affiche un aperçu du site réellement en ligne. Cliquez pour ouvrir le site complet dans un nouvel onglet.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- ▼▼ MODÈLE DE PROJET — copie ce bloc pour ajouter une réalisation ▼▼
+             Remplace partout :
+               - l'adresse encodée dans l'URL mshots (https%3A%2F%2Fmonsite.ch)
+               - le nom de domaine affiché
+               - le titre, le texte, l'étiquette et l'année
+             Garde une seule carte avec la classe "project-featured".            -->
+
+        <article class="project project-featured reveal">
+          <div class="project-media">
+            <figure class="preview-window" style="margin:0">
+              <div class="browser-top" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></div>
+              <div class="shot">
+                <img class="site-shot" alt="Aperçu du site web FIT2010 réalisé par DS Digital Studio"
+                     src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900"
+                     width="1200" height="900" loading="lazy" decoding="async">
+              </div>
+            </figure>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <span class="pill">Site web + Google</span>
+              <span class="project-year">2026</span>
+            </div>
+            <h3>FIT2010</h3>
+            <p>Création d’un site web complet avec inscription et abonnement en ligne, accompagnée de l’optimisation de la fiche d’établissement Google.</p>
+            <a class="project-link" href="https://fit2010.ch" target="_blank" rel="noopener">Voir le site <span>↗</span></a>
+          </div>
+        </article>
+
+        <article class="project reveal delay-1">
+          <div class="project-media">
+            <figure class="preview-window" style="margin:0">
+              <div class="browser-top" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></div>
+              <div class="shot">
+                <img class="site-shot" alt="Aperçu du site web Dymatec"
+                     src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdymatec.ch?w=1200&amp;h=900"
+                     width="1200" height="900" loading="lazy" decoding="async">
+              </div>
+            </figure>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <span class="pill">Référence client</span>
+              <span class="project-year">2026</span>
+            </div>
+            <h3>Dymatec</h3>
+            <p>Une entreprise qui a fait confiance à DS Digital Studio pour sa présence digitale.</p>
+            <a class="project-link" href="https://dymatec.ch" target="_blank" rel="noopener">Voir le site <span>↗</span></a>
+          </div>
+        </article>
+
+        <!-- ▲▲ FIN DU MODÈLE ▲▲ -->
+
+        <article class="project project-coming reveal delay-2">
+          <div class="coming-art">
+            <div class="plus" aria-hidden="true">+</div>
+            <div>
+              <strong>Prochain projet</strong>
+              <span>La suite arrive bientôt.</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <span class="pill">À venir</span>
+              <span class="project-year">Bientôt</span>
+            </div>
+            <h3>Nouvelles réalisations</h3>
+            <p>Le portfolio s’enrichit au fil des collaborations et des mises en ligne.</p>
+            <a class="project-link" href="#contact">Votre projet ici <span>↗</span></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
 
   <!-- ================= À PROPOS ================= -->
   <section class="section section-dark" id="apropos">
