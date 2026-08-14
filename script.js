@@ -106,6 +106,77 @@
     }
   });
 
+  /* ---------- 4 bis. Carrousel d'aperçus (hero) ---------- */
+  const sc = $('#showcase');
+  if (sc) {
+    const slides = $$('.site-shot', sc);
+    const dots = $$('.sc-dot', sc);
+    const urlLabel = $('[data-sc-url]', sc);
+    const openLink = $('[data-sc-link]', sc);
+    let index = 0;
+    let timer = null;
+    const DELAY = 6000;
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((img, n) => img.classList.toggle('active', n === index));
+      dots.forEach((d, n) => {
+        d.classList.toggle('active', n === index);
+        d.setAttribute('aria-selected', n === index ? 'true' : 'false');
+      });
+      const cur = slides[index];
+      if (urlLabel) urlLabel.textContent = cur.dataset.url || '';
+      if (openLink) {
+        openLink.setAttribute('href', cur.dataset.link || '#');
+        openLink.setAttribute('aria-label', 'Voir le site ' + (cur.dataset.url || ''));
+      }
+    }
+
+    function start() {
+      if (reduced || slides.length < 2) return;
+      stop();
+      timer = setInterval(() => show(index + 1), DELAY);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function go(i) { show(i); start(); }
+
+    $('.sc-next', sc).addEventListener('click', () => go(index + 1));
+    $('.sc-prev', sc).addEventListener('click', () => go(index - 1));
+    dots.forEach((d, n) => d.addEventListener('click', () => go(n)));
+
+    sc.addEventListener('mouseenter', stop);
+    sc.addEventListener('mouseleave', start);
+    sc.addEventListener('focusin', stop);
+    sc.addEventListener('focusout', start);
+
+    /* navigation au clavier */
+    sc.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
+    });
+
+    /* balayage tactile */
+    let x0 = null;
+    sc.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; stop(); }, { passive: true });
+    sc.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1)); else start();
+      x0 = null;
+    }, { passive: true });
+
+    /* pause quand la section n'est plus visible */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => (e.isIntersecting ? start() : stop()));
+      }, { threshold: 0.25 }).observe(sc);
+    } else {
+      start();
+    }
+
+    show(0);
+  }
+
   /* ---------- 5. Coordonnées injectées depuis site-config.js ---------- */
   if (EMAIL) {
     $$('a[href^="mailto:"]').forEach(a => {

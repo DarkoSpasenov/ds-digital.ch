@@ -2,7 +2,7 @@
    DS DIGITAL STUDIO — style.css
    1. Tokens        5. Services
    2. Base          6. Réalisations
-   3. Header        7. Méthode / Studio / À propos
+   3. Header        7. À propos
    4. Hero          8. FAQ / CTA / Contact / Footer / Responsive
    ============================================================ */
 
@@ -155,7 +155,42 @@ button,input,select,textarea{font:inherit;color:inherit}
 .shot::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,#eceae3 30%,#f6f5f0 50%,#eceae3 70%);background-size:220% 100%;animation:shimmer 1.7s infinite linear}
 .shot.done::before{display:none}
 @keyframes shimmer{0%{background-position:120% 0}100%{background-position:-120% 0}}
-.hero-badge{position:absolute;background:rgba(20,20,22,.86);backdrop-filter:blur(14px);border:1px solid var(--line-dark);border-radius:14px;padding:13px 17px;box-shadow:var(--shadow-lg)}
+.hero-badge{position:absolute;background:rgba(20,20,22,.86);backdrop-filter:blur(14px);border:1px solid var(--line-dark);border-radius:14px;padding:13px 17px;box-shadow:var(--shadow-lg);z-index:4}
+
+/* --- Carrousel d'aperçus --- */
+.showcase{position:relative}
+.shot.multi img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .55s var(--ease)}
+.shot.multi img.active.loaded{opacity:1}
+.sc-open{
+  position:absolute;left:50%;bottom:16px;transform:translate(-50%,10px);z-index:3;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:11px 20px;
+  background:rgba(11,11,12,.82);backdrop-filter:blur(10px);color:#fff;border-radius:999px;
+  font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s var(--ease);
+}
+.showcase:hover .sc-open,.sc-open:focus-visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sc-open:hover{background:var(--gold);color:#161206}
+.sc-open span{transition:transform .25s var(--ease)}
+.sc-open:hover span{transform:translate(3px,-3px)}
+.sc-arrow{
+  position:absolute;top:calc(50% + 18px);transform:translateY(-50%);z-index:5;
+  width:44px;height:44px;border-radius:50%;cursor:pointer;
+  background:rgba(11,11,12,.62);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);color:#fff;
+  display:grid;place-items:center;transition:.25s var(--ease);
+}
+.sc-arrow svg{width:19px;height:19px}
+.sc-arrow:hover{background:var(--gold);border-color:var(--gold);color:#161206;transform:translateY(-50%) scale(1.06)}
+.sc-prev{left:12px}
+.sc-next{right:12px}
+.sc-dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.sc-dot{
+  width:32px;height:4px;border-radius:99px;border:0;cursor:pointer;padding:0;
+  background:rgba(255,255,255,.22);transition:.3s var(--ease);position:relative;
+}
+.sc-dot::after{content:"";position:absolute;inset:-14px -4px}
+.sc-dot.active{background:var(--gold);width:44px}
+.sc-dot:hover{background:rgba(255,255,255,.45)}
+.sc-dot.active:hover{background:var(--gold-lt)}
 .hero-badge small{display:block;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);font-weight:700}
 .hero-badge strong{display:block;font-size:15px;margin:4px 0 2px}
 .hero-badge span{font-size:11.5px;color:#94938d}
@@ -222,31 +257,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .coming-art strong{display:block;font-size:15px}
 .coming-art span{font-size:13px;color:var(--muted)}
 
-/* ---------- 7. MÉTHODE ---------- */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.step{padding:28px 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);position:relative;transition:.3s var(--ease)}
-.step:hover{border-color:var(--gold);transform:translateY(-4px)}
-.step > b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--gold-lt);font-size:12.5px;font-weight:700;margin-bottom:18px}
-.step h3{font-size:17.5px;margin-bottom:9px}
-.step p{color:var(--muted);font-size:14.5px;line-height:1.6}
-
-/* ---------- Mosaïque studio ---------- */
-.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px}
-.mosaic figure{margin:0;position:relative;border-radius:16px;overflow:hidden;background:#e6e4dd}
-.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.mosaic figure:hover img{transform:scale(1.05)}
-.mosaic figcaption{position:absolute;left:14px;bottom:12px;font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.mosaic figure::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,12,.55),transparent 52%)}
-.m-a{grid-column:span 2;grid-row:span 2}
-.m-b{grid-column:span 2}
-.m-c,.m-d,.m-e{grid-column:span 1}
-.m-e{grid-column:span 2}
-
 /* ---------- À PROPOS ---------- */
 .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,72px);align-items:center}
 .about-copy h2{font-size:clamp(28px,3.7vw,46px);margin:14px 0 22px}
 .about-copy p{color:#b7b6af;font-size:16.5px;line-height:1.68;margin-bottom:16px;max-width:54ch}
-.about-visual{position:relative}
+.about-visual{position:relative;min-width:0}
 .about-photo{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line-dark)}
 .about-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(.25)}
 .about-card{position:absolute;right:-10px;bottom:-30px;background:rgba(20,20,22,.9);backdrop-filter:blur(16px);border:1px solid var(--line-dark);border-radius:18px;padding:20px 22px;display:grid;gap:14px;min-width:250px;box-shadow:var(--shadow-lg)}
@@ -332,7 +347,6 @@ button,input,select,textarea{font:inherit;color:inherit}
    ============================================================ */
 @media (max-width:1080px){
   .services-grid{grid-template-columns:repeat(2,1fr)}
-  .steps{grid-template-columns:repeat(2,1fr)}
   .hero-grid{grid-template-columns:1fr;gap:52px}
   .hero-visual{max-width:520px;width:100%}
   .preview-window{transform:none!important}
@@ -360,24 +374,19 @@ button,input,select,textarea{font:inherit;color:inherit}
   .project-featured{grid-column:span 2;flex-direction:column}
   .project-featured .project-media{padding:18px 18px 0}
   .project-featured .preview-window{border-radius:12px 12px 0 0}
-  .mosaic{grid-auto-rows:130px}
 }
 
 @media (max-width:720px){
   .container{width:calc(100% - 32px)}
   html{scroll-padding-top:86px}
   .projects-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
   .project-featured{grid-column:span 1}
-  .services-grid,.steps{grid-template-columns:1fr}
   .field-row{grid-template-columns:1fr}
   .hero-proof{grid-template-columns:1fr;gap:12px;max-width:none}
   .hero-proof div{flex-direction:row;align-items:baseline;gap:10px}
   .hero-actions{gap:10px}
   .hero-actions .btn{width:100%}
-  .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:120px}
-  .m-a{grid-column:span 2;grid-row:span 2}
-  .m-b,.m-e{grid-column:span 2}
-  .m-c,.m-d{grid-column:span 1}
   .trust-inner{gap:14px 20px}
   /* zones tactiles confortables */
   .client-wordmark,.text-link{display:inline-flex;align-items:center;min-height:44px}
@@ -397,6 +406,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (hover:none){
   .brand,.client-wordmark,.text-link,.footer-cols a,.nav-cta{min-height:44px;display:inline-flex;align-items:center}
   .footer-cols a{padding:9px 0;margin-bottom:0}
+  /* pas de survol possible : le bouton reste visible */
+  .sc-open{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 }
 
 /* Accessibilité : mouvement réduit */

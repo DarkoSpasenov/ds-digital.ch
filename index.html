@@ -117,7 +117,6 @@
     <nav class="nav" id="mainnav" aria-label="Navigation principale">
       <a href="#services">Services</a>
       <a href="#realisations">Réalisations</a>
-      <a href="#methode">Méthode</a>
       <a href="#apropos">À propos</a>
       <a href="#faq">FAQ</a>
       <a href="#contact" class="nav-cta">Demander un devis</a>
@@ -154,15 +153,56 @@
       </div>
 
       <div class="hero-visual reveal delay-1">
-        <!-- Aperçu en direct d'un site réalisé -->
-        <figure class="preview-window" style="margin:0">
-          <div class="browser-top" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></div>
-          <div class="shot">
-            <img class="site-shot" alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio"
-                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900"
-                 width="1200" height="900" loading="eager" decoding="async">
+
+        <!-- ================================================================
+             CARROUSEL D'APERÇUS — pour ajouter un site, copie une ligne <img>
+             et une ligne <button class="sc-dot">, puis renseigne :
+               data-url   : le domaine affiché dans la barre du navigateur
+               data-link  : l'adresse complète du site
+               src        : l'adresse encodée (%3A%2F%2F remplace "://")
+             ================================================================ -->
+        <div class="showcase" id="showcase" aria-roledescription="carrousel" aria-label="Aperçus de sites réalisés">
+          <figure class="preview-window" style="margin:0">
+            <div class="browser-top" aria-hidden="true">
+              <i></i><i></i><i></i><small data-sc-url>fit2010.ch</small>
+            </div>
+            <div class="shot multi">
+
+              <img class="site-shot active" data-url="fit2010.ch" data-link="https://fit2010.ch"
+                   alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900"
+                   width="1200" height="900" loading="eager" decoding="async">
+
+              <img class="site-shot" data-url="delta-view.ch" data-link="https://delta-view.ch"
+                   alt="Aperçu du site delta-view.ch réalisé par DS Digital Studio"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdelta-view.ch?w=1200&amp;h=900"
+                   width="1200" height="900" loading="eager" decoding="async">
+
+              <img class="site-shot" data-url="dymatec.ch" data-link="https://dymatec.ch"
+                   alt="Aperçu du site dymatec.ch"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdymatec.ch?w=1200&amp;h=900"
+                   width="1200" height="900" loading="eager" decoding="async">
+
+              <a class="sc-open" data-sc-link href="https://fit2010.ch" target="_blank" rel="noopener">
+                Voir le site <span>↗</span>
+              </a>
+            </div>
+          </figure>
+
+          <button class="sc-arrow sc-prev" type="button" aria-label="Aperçu précédent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="sc-arrow sc-next" type="button" aria-label="Aperçu suivant">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+
+          <div class="sc-dots" role="tablist" aria-label="Choisir un aperçu">
+            <button class="sc-dot active" type="button" aria-label="Aperçu 1"></button>
+            <button class="sc-dot" type="button" aria-label="Aperçu 2"></button>
+            <button class="sc-dot" type="button" aria-label="Aperçu 3"></button>
           </div>
-        </figure>
+        </div>
+
         <div class="hero-badge badge-b" aria-hidden="true">
           <small>Google</small><strong>Plus visible.</strong><span>Fiche optimisée · SEO local</span>
         </div>
@@ -349,72 +389,12 @@
     </div>
   </section>
 
-  <!-- ================= MÉTHODE ================= -->
-  <section class="section" id="methode">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="kicker">03 — Méthode</span>
-          <h2>Un projet simple à suivre, du premier échange à la mise en ligne.</h2>
-        </div>
-        <p>Vous savez toujours où en est votre projet, ce qui est attendu de vous et ce qui arrive ensuite.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step reveal"><b>01</b><h3>Échange</h3><p>On définit vos besoins, vos objectifs et ce que votre entreprise doit mieux montrer.</p></div>
-        <div class="step reveal delay-1"><b>02</b><h3>Direction</h3><p>Structure, style, messages et solution adaptée sont cadrés avant la production.</p></div>
-        <div class="step reveal delay-2"><b>03</b><h3>Création</h3><p>Le projet prend forme avec un rendu cohérent, professionnel et adapté à votre activité.</p></div>
-        <div class="step reveal delay-3"><b>04</b><h3>Mise en ligne</h3><p>Le résultat final est vérifié, optimisé et préparé pour être utilisé par votre entreprise.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= MOSAÏQUE ================= -->
-  <section class="section section-soft" aria-label="Aperçu du travail">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="kicker">04 — En pratique</span>
-          <h2>Du design au référencement, tout est traité au même endroit.</h2>
-        </div>
-        <p>Design d’interface, développement, contenu, visuels et visibilité : les briques d’un projet digital cohérent.</p>
-      </div>
-
-      <div class="mosaic reveal">
-        <figure class="m-a">
-          <img src="https://images.pexels.com/photos/326515/pexels-photo-326515.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
-               alt="Poste de travail avec deux écrans utilisé pour la conception de sites web" width="1200" height="800" loading="lazy" decoding="async">
-          <figcaption>Design d’interface</figcaption>
-        </figure>
-        <figure class="m-b">
-          <img src="https://images.pexels.com/photos/270488/pexels-photo-270488.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
-               alt="Lignes de code HTML affichées sur un écran" width="900" height="600" loading="lazy" decoding="async">
-          <figcaption>Développement</figcaption>
-        </figure>
-        <figure class="m-c">
-          <img src="https://images.pexels.com/photos/12902944/pexels-photo-12902944.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-               alt="Création graphique sur tablette et ordinateur portable" width="700" height="500" loading="lazy" decoding="async">
-          <figcaption>Identité visuelle</figcaption>
-        </figure>
-        <figure class="m-d">
-          <img src="https://images.pexels.com/photos/15406294/pexels-photo-15406294.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-               alt="Écran de smartphone affichant des applications de réseaux sociaux" width="700" height="500" loading="lazy" decoding="async">
-          <figcaption>Réseaux &amp; publicité</figcaption>
-        </figure>
-        <figure class="m-e">
-          <img src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
-               alt="Bureau de travail avec écrans et téléphones" width="900" height="600" loading="lazy" decoding="async">
-          <figcaption>Suivi &amp; visibilité</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
 
   <!-- ================= À PROPOS ================= -->
   <section class="section section-dark" id="apropos">
     <div class="container about-grid">
       <div class="about-copy reveal">
-        <span class="kicker light">05 — À propos</span>
+        <span class="kicker light">03 — À propos</span>
         <h2>Un interlocuteur unique pour votre présence digitale.</h2>
         <p>DS Digital Studio est une entreprise basée à Belfaux, dans le canton de Fribourg, et dirigée par Darko Spasenov. L’objectif : proposer des solutions digitales claires, professionnelles et adaptées aux besoins réels de chaque entreprise.</p>
         <p>Du site web à la visibilité Google, jusqu’aux contenus photo/vidéo et aux supports QR &amp; NFC, chaque projet est conçu pour renforcer l’image et faciliter le développement de l’activité.</p>
@@ -440,7 +420,7 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <span class="kicker">06 — Questions fréquentes</span>
+          <span class="kicker">04 — Questions fréquentes</span>
           <h2>Les réponses avant même de nous écrire.</h2>
         </div>
         <p>Une question qui ne figure pas ici ? Posez-la directement via le formulaire.</p>
@@ -493,7 +473,7 @@
     <div class="container contact-grid">
 
       <div class="contact-copy reveal">
-        <span class="kicker">07 — Contact</span>
+        <span class="kicker">05 — Contact</span>
         <h2>Parlons de votre prochain projet.</h2>
         <p>Expliquez simplement ce dont vous avez besoin. DS Digital Studio pourra ensuite vous proposer une solution adaptée.</p>
 
@@ -567,8 +547,7 @@
           <h4>Navigation</h4>
           <a href="#services">Services</a>
           <a href="#realisations">Réalisations</a>
-          <a href="#methode">Méthode</a>
-          <a href="#apropos">À propos</a>
+              <a href="#apropos">À propos</a>
           <a href="#faq">FAQ</a>
         </div>
         <div>

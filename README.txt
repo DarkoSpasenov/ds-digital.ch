@@ -81,6 +81,22 @@ ensuite mise en cache et s'affiche instantanément.
 
 
 -------------------------------------------------
+4 bis. LE CARROUSEL D'APERÇUS (en haut de page)
+-------------------------------------------------
+Dans index.html, cherche le commentaire "CARROUSEL D'APERÇUS".
+Pour ajouter un site au défilement, copie une ligne <img> et
+renseigne trois valeurs :
+    data-url   = le domaine affiché dans la barre du navigateur
+    data-link  = l'adresse complète du site
+    src        = la même adresse encodée (%3A%2F%2F remplace "://")
+Ajoute ensuite un <button class="sc-dot"> de plus juste en dessous.
+
+Le carrousel défile tout seul toutes les 6 secondes, se met en pause
+au survol, se pilote aux flèches, aux points, au clavier (← →)
+et au balayage du doigt sur mobile.
+
+
+-------------------------------------------------
 5. CHANGER LES COORDONNÉES
 -------------------------------------------------
 Tout est dans site-config.js :
