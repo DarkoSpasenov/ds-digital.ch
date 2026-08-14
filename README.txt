@@ -13,7 +13,10 @@ DS DIGITAL STUDIO — VERSION 2 (GITHUB PAGES)
 - Polices réellement chargées (Inter + Instrument Serif). Avant, "Inter"
   était déclarée dans le CSS mais jamais téléchargée : le site s'affichait
   avec la police système.
-- Nouvelles sections : mosaïque "En pratique", FAQ, bandeau d'appel à l'action.
+- Section "Packs sites web" : 3 cartes tarifaires (Essentiel / Pro / Premium),
+  le Pack Pro visuellement mis en avant avec badge "Le plus choisi".
+  Tous les boutons pointent vers la section Contact.
+- Nouvelle section FAQ et bandeau d'appel à l'action.
 - Menu mobile plein écran, barre de progression de lecture, bouton retour en haut.
 - SEO : Open Graph, Twitter Card, données structurées entreprise + FAQ,
   balises alt descriptives, sitemap daté.
@@ -97,12 +100,48 @@ et au balayage du doigt sur mobile.
 
 
 -------------------------------------------------
+4 ter. MODIFIER LES PACKS ET LES PRIX
+-------------------------------------------------
+Dans index.html, section "PACKS SITES WEB".
+Chaque pack est un bloc <article class="pack">.
+
+  - Le prix se trouve dans <p class="pack-price"> :
+        <small>Dès</small><strong>750</strong><em>CHF</em>
+  - Chaque ligne de la liste est un simple <li>.
+    La coche dorée est ajoutée automatiquement par le CSS.
+  - Pour griser une mention comme "si nécessaire",
+    entoure-la de <i>...</i>.
+  - La carte mise en avant porte la classe "pack-featured"
+    et contient <span class="pack-badge">Le plus choisi</span>.
+    Ne mets cette classe que sur UNE seule carte.
+
+Si tu changes un prix, pense à le changer aussi dans les données
+structurées en haut du fichier (bloc "hasOfferCatalog", champ minPrice)
+et dans la balise <title>, sinon Google affichera l'ancien montant.
+
+
+-------------------------------------------------
 5. CHANGER LES COORDONNÉES
 -------------------------------------------------
 Tout est dans site-config.js :
   contactEmail, phone, instagram, facebook, linkedin.
 Un téléphone ou un réseau renseigné apparaît automatiquement sur le site.
 Laisse la valeur vide pour ne rien afficher.
+
+
+-------------------------------------------------
+5 bis. LE PORTRAIT DE LA SECTION "À PROPOS"
+-------------------------------------------------
+Fichiers : assets/darko-portrait.webp (1000x1250)
+           assets/darko-portrait-600.webp (version légère mobile)
+
+La photo a été détourée puis reposée sur un fond sombre dégradé
+assorti à la section, avec un fondu vers le bas.
+
+Pour la remplacer plus tard : garde le même format portrait 4/5
+et le même fond sombre, sinon le fondu du bas ne collera plus.
+Les deux tailles doivent être régénérées ensemble (elles sont
+liées par l'attribut srcset dans index.html).
 
 
 -------------------------------------------------
