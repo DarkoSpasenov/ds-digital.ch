@@ -1,235 +1,66 @@
-/* ============================================================
-   DS DIGITAL STUDIO — script.js
-   Aucun réglage à faire ici : tout se passe dans site-config.js
-   ============================================================ */
-(function () {
-  'use strict';
+const header = document.querySelector('.site-header');
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.nav');
 
-  const CFG = window.DS_CONFIG || {};
-  const EMAIL = (CFG.contactEmail || '').trim();
-  const $ = (s, c) => (c || document).querySelector(s);
-  const $$ = (s, c) => Array.prototype.slice.call((c || document).querySelectorAll(s));
+window.addEventListener('scroll', () => {
+  if (header) header.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
 
-  /* ---------- 1. Header : fond + barre de progression ---------- */
-  const header = $('.site-header');
-  const bar = $('#progressBar');
-  const toTop = $('#toTop');
-
-  function onScroll() {
-    const y = window.scrollY;
-    if (header) header.classList.toggle('scrolled', y > 16);
-    if (toTop) toTop.classList.toggle('show', y > 700);
-    if (bar) {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  if (toTop) {
-    toTop.addEventListener('click', () =>
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    );
-  }
-
-  /* ---------- 2. Menu mobile ---------- */
-  const toggle = $('.menu-toggle');
-  const nav = $('.nav');
-
-  function closeMenu() {
-    if (!nav) return;
-    nav.classList.remove('open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Ouvrir le menu');
-    }
-  }
-
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    });
-    $$('.nav a').forEach(a => a.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
-  }
-
-  /* ---------- 3. Apparition au scroll ---------- */
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealables = $$('.reveal');
-
-  if (reduced || !('IntersectionObserver' in window)) {
-    revealables.forEach(el => el.classList.add('visible'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    revealables.forEach(el => io.observe(el));
-  }
-
-  /* ---------- 4. Aperçus des sites réalisés ----------
-     Les captures sont générées à la volée par le service mShots.
-     La première demande peut prendre quelques secondes : on garde
-     l'animation de chargement, puis on retente une fois.          */
-  $$('.site-shot').forEach(img => {
-    const box = img.closest('.shot');
-    let retried = false;
-
-    function done() {
-      img.classList.add('loaded');
-      if (box) box.classList.add('done');
-    }
-
-    function retry() {
-      if (retried) return;
-      retried = true;
-      const src = img.getAttribute('src');
-      fetch(src, { mode: 'no-cors', cache: 'reload' })
-        .catch(() => {})
-        .finally(() => { img.src = src; });
-    }
-
-    if (img.complete && img.naturalWidth > 0) {
-      done();
-    } else {
-      img.addEventListener('load', done, { once: false });
-      img.addEventListener('error', () => { if (box) box.classList.add('done'); });
-      setTimeout(retry, 6000);
-    }
+if (toggle && nav) {
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
+}
 
-  /* ---------- 5. Coordonnées injectées depuis site-config.js ---------- */
-  if (EMAIL) {
-    $$('a[href^="mailto:"]').forEach(a => {
-      a.setAttribute('href', 'mailto:' + EMAIL);
-      if (a.textContent.indexOf('@') > -1) a.textContent = EMAIL;
-    });
-    $$('.contact-link em, .about-card strong').forEach(el => {
-      if (el.textContent.indexOf('@') > -1) el.textContent = EMAIL;
-    });
-  }
+document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => {
+  nav?.classList.remove('open');
+  toggle?.setAttribute('aria-expanded', 'false');
+}));
 
-  const links = $('.contact-links');
-  if (links && CFG.phone) {
-    const tel = String(CFG.phone).trim();
-    const a = document.createElement('a');
-    a.className = 'contact-link';
-    a.href = 'tel:' + tel.replace(/[^+0-9]/g, '');
-    a.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z"/></svg>' +
-      '<span><b>Téléphone</b><em>' + tel + '</em></span>';
-    links.appendChild(a);
-  }
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+}
 
-  const socialWrap = $('.footer-cols div:last-child');
-  if (socialWrap) {
-    [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['linkedin', 'LinkedIn']].forEach(([key, label]) => {
-      if (!CFG[key]) return;
-      const a = document.createElement('a');
-      a.href = CFG[key];
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.textContent = label;
-      socialWrap.appendChild(a);
-    });
-  }
+const year = document.getElementById('currentYear');
+if (year) year.textContent = new Date().getFullYear();
 
-  /* ---------- 6. Formulaire de contact ---------- */
-  const form = $('[data-contact-form]');
-  const alertBox = $('#formAlert');
+const form = document.querySelector('[data-contact-form]');
+const formAlert = document.getElementById('formAlert');
 
-  function say(type, text) {
-    if (!alertBox) return;
-    alertBox.hidden = false;
-    alertBox.className = 'form-alert ' + type;
-    alertBox.textContent = text;
-    alertBox.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
-  }
+if (form) {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = (window.DS_CONFIG?.contactEmail || '').trim();
 
-  if (form) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      /* piège à robots */
-      if (form.website && form.website.value) return;
-
-      if (!form.checkValidity()) {
-        say('error', 'Merci de compléter les champs obligatoires (nom, e-mail et description du projet).');
-        const first = form.querySelector(':invalid');
-        if (first) first.focus();
-        return;
+    if (!email) {
+      if (formAlert) {
+        formAlert.hidden = false;
+        formAlert.className = 'form-alert warning';
+        formAlert.textContent = "Le formulaire doit encore être relié à l’adresse e-mail de DS Digital Studio.";
       }
+      return;
+    }
 
-      const data = new FormData(form);
-      const get = k => (data.get(k) || '').toString().trim();
-      const btn = form.querySelector('.submit-btn');
+    const data = new FormData(form);
+    const subject = encodeURIComponent('Nouvelle demande — DS Digital Studio');
+    const body = encodeURIComponent(
+      `Nom : ${data.get('name') || ''}\n` +
+      `Entreprise : ${data.get('company') || ''}\n` +
+      `E-mail : ${data.get('email') || ''}\n` +
+      `Téléphone : ${data.get('phone') || ''}\n` +
+      `Service : ${data.get('service') || ''}\n\n` +
+      `Projet :\n${data.get('message') || ''}`
+    );
 
-      /* --- Option A : envoi direct via Web3Forms --- */
-      if (CFG.web3formsKey) {
-        if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
-        try {
-          const payload = {
-            access_key: CFG.web3formsKey,
-            subject: 'Nouvelle demande — DS Digital Studio',
-            from_name: 'Site ds-digital.ch',
-            Nom: get('name'),
-            Entreprise: get('company'),
-            'E-mail': get('email'),
-            'Téléphone': get('phone'),
-            Service: get('service'),
-            Projet: get('message')
-          };
-          const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          const out = await res.json();
-          if (out.success) {
-            form.reset();
-            say('success', 'Merci, votre demande a bien été envoyée. Une réponse vous parviendra rapidement.');
-          } else {
-            say('error', 'L’envoi a échoué. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
-          }
-        } catch (e) {
-          say('error', 'L’envoi a échoué. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
-        } finally {
-          if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer ma demande <span>↗</span>'; }
-        }
-        return;
-      }
-
-      /* --- Option B : ouverture du logiciel e-mail --- */
-      if (!EMAIL) {
-        say('warning', 'Le formulaire doit encore être relié à une adresse e-mail dans le fichier site-config.js.');
-        return;
-      }
-
-      const subject = encodeURIComponent('Nouvelle demande — DS Digital Studio');
-      const body = encodeURIComponent(
-        'Nom : ' + get('name') + '\n' +
-        'Entreprise : ' + get('company') + '\n' +
-        'E-mail : ' + get('email') + '\n' +
-        'Téléphone : ' + get('phone') + '\n' +
-        'Service : ' + get('service') + '\n\n' +
-        'Projet :\n' + get('message')
-      );
-      window.location.href = 'mailto:' + EMAIL + '?subject=' + subject + '&body=' + body;
-      say('success', 'Votre logiciel e-mail va s’ouvrir avec le message pré-rempli. S’il ne s’ouvre pas, écrivez à ' + EMAIL + '.');
-    });
-  }
-
-  /* ---------- 7. Année automatique ---------- */
-  const year = $('#currentYear');
-  if (year) year.textContent = new Date().getFullYear();
-
-})();
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  });
+}
