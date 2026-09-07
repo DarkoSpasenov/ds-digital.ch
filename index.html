@@ -470,7 +470,7 @@
 
       <div class="form-card reveal delay-1">
         <div id="formAlert" class="form-alert" hidden role="status" aria-live="polite"></div>
-        <form class="contact-form" data-contact-form novalidate>
+        <form class="contact-form" data-contact-form action="https://formspree.io/f/xzebjypp" method="POST" novalidate>
           <div class="field-row">
             <label>Nom *<input type="text" name="name" required autocomplete="name" placeholder="Votre nom"></label>
             <label>Entreprise<input type="text" name="company" autocomplete="organization" placeholder="Nom de l’entreprise"></label>
@@ -492,6 +492,7 @@
           </label>
           <label>Votre projet *<textarea name="message" required rows="5" placeholder="Décrivez votre besoin en quelques lignes…"></textarea></label>
 
+          <input type="hidden" name="_subject" value="Nouvelle demande — DS Digital Studio">
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <button class="btn btn-gold submit-btn" type="submit">Envoyer ma demande <span>↗</span></button>

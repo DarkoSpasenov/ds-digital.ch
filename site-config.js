@@ -23,14 +23,9 @@ window.DS_CONFIG = {
   linkedin: '',
 
   /* --- 4. FORMULAIRE --------------------------------------------------
-     Vide  = le formulaire ouvre le logiciel e-mail du visiteur.
-     Rempli = les demandes arrivent directement dans ta boîte mail.
+     Endpoint Formspree utilisé par le formulaire de contact.
+     Les demandes sont configurées côté Formspree pour arriver sur
+     info@ds-digital.ch.                                              */
+  formspreeEndpoint: 'https://formspree.io/f/xzebjypp'
 
-     Pour l'activer (gratuit, 2 minutes) :
-       1. https://web3forms.com  ->  entre info@ds-digital.ch
-       2. Tu reçois une clé par e-mail
-       3. Colle-la ci-dessous entre les apostrophes
-
-     Exemple : web3formsKey: '1a2b3c4d-5e6f-7890-abcd-ef1234567890'       */
-  web3formsKey: ''
 };

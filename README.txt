@@ -41,18 +41,15 @@ DS DIGITAL STUDIO — VERSION 2 (GITHUB PAGES)
 -------------------------------------------------
 3. LE FORMULAIRE
 -------------------------------------------------
-Par défaut, il ouvre le logiciel e-mail du visiteur avec un message
-pré-rempli vers info@ds-digital.ch.
+Le formulaire est relié à Formspree et envoie les demandes directement
+vers la boîte configurée sur le formulaire Formspree.
 
-POUR RECEVOIR LES DEMANDES DIRECTEMENT (recommandé, gratuit) :
-1. Va sur https://web3forms.com
-2. Entre info@ds-digital.ch, tu reçois une clé par e-mail.
-3. Ouvre site-config.js et colle la clé :
-       web3formsKey: 'ta-cle-ici'
-4. Enregistre et republie. C'est tout.
+Endpoint actuellement utilisé :
+       https://formspree.io/f/xzebjypp
 
-Sans cette clé, un visiteur sur mobile sans application e-mail configurée
-peut ne pas réussir à envoyer sa demande. C'est la première chose à faire.
+Si tu changes de formulaire Formspree, remplace simplement la valeur
+formspreeEndpoint dans site-config.js et l’attribut action du formulaire
+dans index.html.
 
 
 -------------------------------------------------

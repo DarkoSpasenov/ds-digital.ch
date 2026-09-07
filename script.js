@@ -307,62 +307,34 @@
         return;
       }
 
-      const data = new FormData(form);
-      const get = k => (data.get(k) || '').toString().trim();
+      const endpoint = (CFG.formspreeEndpoint || form.getAttribute('action') || '').trim();
       const btn = form.querySelector('.submit-btn');
 
-      /* --- Option A : envoi direct via Web3Forms --- */
-      if (CFG.web3formsKey) {
-        if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
-        try {
-          const payload = {
-            access_key: CFG.web3formsKey,
-            subject: 'Nouvelle demande — DS Digital Studio',
-            from_name: 'Site ds-digital.ch',
-            Nom: get('name'),
-            Entreprise: get('company'),
-            'E-mail': get('email'),
-            'Téléphone': get('phone'),
-            Service: get('service'),
-            Projet: get('message')
-          };
-          const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          const out = await res.json();
-          if (out.success) {
-            form.reset();
-            say('success', 'Merci, votre demande a bien été envoyée. Une réponse vous parviendra rapidement.');
-          } else {
-            say('error', 'L’envoi a échoué. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
-          }
-        } catch (e) {
+      if (!endpoint) {
+        say('error', 'Le formulaire n’est pas configuré. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          say('success', 'Merci, votre demande a bien été envoyée. Une réponse vous parviendra rapidement.');
+        } else {
           say('error', 'L’envoi a échoué. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
-        } finally {
-          if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer ma demande <span>↗</span>'; }
         }
-        return;
+      } catch (e) {
+        say('error', 'L’envoi a échoué. Vérifiez votre connexion ou écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer ma demande <span>↗</span>'; }
       }
-
-      /* --- Option B : ouverture du logiciel e-mail --- */
-      if (!EMAIL) {
-        say('warning', 'Le formulaire doit encore être relié à une adresse e-mail dans le fichier site-config.js.');
-        return;
-      }
-
-      const subject = encodeURIComponent('Nouvelle demande — DS Digital Studio');
-      const body = encodeURIComponent(
-        'Nom : ' + get('name') + '\n' +
-        'Entreprise : ' + get('company') + '\n' +
-        'E-mail : ' + get('email') + '\n' +
-        'Téléphone : ' + get('phone') + '\n' +
-        'Service : ' + get('service') + '\n\n' +
-        'Projet :\n' + get('message')
-      );
-      window.location.href = 'mailto:' + EMAIL + '?subject=' + subject + '&body=' + body;
-      say('success', 'Votre logiciel e-mail va s’ouvrir avec le message pré-rempli. S’il ne s’ouvre pas, écrivez à ' + EMAIL + '.');
     });
   }
 
