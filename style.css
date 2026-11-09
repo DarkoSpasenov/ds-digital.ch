@@ -358,9 +358,10 @@ button,input,select,textarea{font:inherit;color:inherit}
   .hero-actions{width:100%}
   .hero-actions .btn{flex:1 1 100%}
   .hero-stage{aspect-ratio:1/.62;margin-top:40px}
-  .stack-card{width:72%;--x:14%}
-  .stack-card:nth-child(1){--x:-14%;--y:12%;--rot:26deg}
-  .stack-card:nth-child(2){--x:42%;--y:12%;--rot:-26deg}
+  .hero-stage{aspect-ratio:1/.5}
+  .stack-card{width:62%;--x:19%}
+  .stack-card:nth-child(1){--x:0%;--y:12%;--rot:24deg}
+  .stack-card:nth-child(2){--x:38%;--y:12%;--rot:-24deg}
   .services{grid-template-columns:1fr}
   .project-meta{flex-direction:column;gap:10px}
   .about-facts{grid-template-columns:1fr}
