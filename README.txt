@@ -7,18 +7,16 @@ Aucune étape de compilation : HTML, CSS et JavaScript simples.
 
 1. CE QUI A CHANGÉ PAR RAPPORT À LA VERSION 2
 -------------------------------------------------
-- Nouveau logo monogramme « DS. » : lettres ivoire à empattements sur carré
-  noir, filet et point or.
+- Nouveau logo « DS. » : lettres blanches sur carré encre, point orange.
     assets/logo-ds.svg       logo principal (vectoriel)
     assets/logo-ds-mark.svg  « DS. » seul, sans carré
     assets/logo-ds.png/.webp, assets/favicon.png : versions image
-- Style luxe en trois couleurs : noir #0B0B0C, ivoire #F4EEE3,
-  or champagne #C6A15B. Les gris sont des nuances du noir ou de l'ivoire.
-- Titres en Cormorant Garamond, texte en Inter. Les polices sont
-  hébergées sur le site (assets/fonts/), plus d'appel à Google Fonts.
-- Sections alternées noir / ivoire (classe "light" sur les sections ivoire).
-- Hero : tes réalisations empilées en 3D (CSS, sans librairie lourde),
-  avec filet or, qui suivent légèrement la souris et s'avancent au survol.
+- Style simple en trois couleurs : encre #0E1116, blanc #FFFFFF,
+  orange #FF5A1F. Les gris sont des nuances de l'encre.
+- Une seule police, Inter, hébergée sur le site (assets/fonts/),
+  plus d'appel à Google Fonts.
+- Hero centré : tes réalisations en éventail 3D (CSS, sans librairie
+  lourde), qui suivent légèrement la souris et s'avancent au survol.
 - Nouvelle section « Services » : chaque bouton « Devis » pré-sélectionne
   le bon service dans le formulaire.
 - Section « Réalisations » ajoutée (elle manquait alors que le menu y
@@ -34,9 +32,9 @@ Aucune étape de compilation : HTML, CSS et JavaScript simples.
 
 2. COULEURS
 -------------------------------------------------
-Tout est en haut de style.css (--black, --ivory, --gold).
-Changer --gold suffit pour changer la couleur d'accent partout
-(pense aussi au filet et au point du logo dans les fichiers .svg).
+Tout est en haut de style.css (--ink, --white, --accent).
+Changer --accent suffit pour changer la couleur d'accent partout
+(pense aussi au point du logo dans les fichiers .svg).
 
 
 3. LE FORMULAIRE

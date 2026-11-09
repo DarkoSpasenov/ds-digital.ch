@@ -126,8 +126,8 @@
       const y = (e.clientY - r.top) / r.height - 0.5;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        stack.style.setProperty('--ry', (-20 + x * 12).toFixed(2) + 'deg');
-        stack.style.setProperty('--rx', (10 - y * 8).toFixed(2) + 'deg');
+        stack.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg');
+        stack.style.setProperty('--rx', (8 - y * 6).toFixed(2) + 'deg');
       });
     });
     hero.addEventListener('pointerleave', () => {
