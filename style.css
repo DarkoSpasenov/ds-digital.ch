@@ -134,10 +134,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .stack-card{--x:27%;--y:0%;--rot:0deg;--z:60px;
   position:absolute;width:46%;left:var(--x);top:var(--y);
   border-radius:14px;overflow:hidden;background:var(--white);
-  box-shadow:0 0 0 1px var(--line),0 40px 70px -30px rgba(14,17,22,.45);
+  box-shadow:0 0 0 1px var(--line),0 22px 36px -22px rgba(14,17,22,.42);
   transform:translateZ(var(--z)) rotateY(var(--rot));transition:transform .5s var(--ease-out),box-shadow .5s}
-.stack-card:nth-child(1){--x:1%;--y:9%;--rot:22deg;--z:-60px}
-.stack-card:nth-child(2){--x:53%;--y:9%;--rot:-22deg;--z:-60px}
+.stack-card:nth-child(1){--x:1%;--y:9%;--rot:22deg;--z:-140px}
+.stack-card:nth-child(2){--x:53%;--y:9%;--rot:-22deg;--z:-140px}
 .stack-card:hover,.stack-card:focus-visible{transform:translateZ(calc(var(--z) + 50px)) rotateY(var(--rot)) translateY(-8px);box-shadow:0 0 0 2px var(--accent),0 50px 90px -30px rgba(14,17,22,.5)}
 .stack-card img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
 .stack-card .frame-bar{height:28px;padding:0 10px}
@@ -358,10 +358,11 @@ button,input,select,textarea{font:inherit;color:inherit}
   .hero-actions{width:100%}
   .hero-actions .btn{flex:1 1 100%}
   .hero-stage{aspect-ratio:1/.62;margin-top:40px}
-  .hero-stage{aspect-ratio:1/.5}
-  .stack-card{width:62%;--x:19%}
-  .stack-card:nth-child(1){--x:0%;--y:12%;--rot:24deg}
-  .stack-card:nth-child(2){--x:38%;--y:12%;--rot:-24deg}
+  .hero-stage{aspect-ratio:1/.44}
+  .stack-card{width:62%;--x:19%;box-shadow:0 0 0 1px var(--line),0 18px 28px -18px rgba(14,17,22,.4)}
+  .stack-card:nth-child(1),.stack-card:nth-child(2){width:50%;--y:14%;--z:-160px}
+  .stack-card:nth-child(1){--x:0%;--rot:20deg}
+  .stack-card:nth-child(2){--x:50%;--rot:-20deg}
   .services{grid-template-columns:1fr}
   .project-meta{flex-direction:column;gap:10px}
   .about-facts{grid-template-columns:1fr}
