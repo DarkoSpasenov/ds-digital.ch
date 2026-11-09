@@ -114,6 +114,28 @@
     });
   }
 
+  /* ---------- 4 bis. Pile de réalisations du hero : suit la souris ---------- */
+  const stage = $('[data-stage]');
+  const stack = stage && $('.stack', stage);
+  if (stack && finePointer && !reduced) {
+    const hero = stage.closest('.hero');
+    let raf = 0;
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        stack.style.setProperty('--ry', (-20 + x * 12).toFixed(2) + 'deg');
+        stack.style.setProperty('--rx', (10 - y * 8).toFixed(2) + 'deg');
+      });
+    });
+    hero.addEventListener('pointerleave', () => {
+      stack.style.removeProperty('--ry');
+      stack.style.removeProperty('--rx');
+    });
+  }
+
   /* ---------- 5. Bandeau clients qui défile ---------- */
   const marquee = $('.marquee');
   if (marquee && !reduced) {

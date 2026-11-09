@@ -8,8 +8,8 @@
 <meta name="description" content="Studio digital à Belfaux (Fribourg) : création de sites web dès 750 CHF, SEO local et fiche Google Business, Google Ads & Meta Ads, identité visuelle, photo/vidéo, QR & NFC.">
 <meta name="author" content="Darko Spasenov">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="theme-color" content="#0a0a0b">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
 <meta name="geo.region" content="CH-FR">
 <meta name="geo.placename" content="Belfaux">
 <link rel="canonical" href="https://ds-digital.ch/">
@@ -24,27 +24,26 @@
 <meta property="og:image" content="https://ds-digital.ch/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Les réalisations de DS Digital Studio en orbite, en 3D">
+<meta property="og:image:alt" content="DS Digital Studio — sites web et visibilité Google à Belfaux, Fribourg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DS Digital Studio — Sites web & visibilité Google">
 <meta name="twitter:description" content="Studio digital à Belfaux : sites web, Google, publicité, image et contenu.">
 <meta name="twitter:image" content="https://ds-digital.ch/assets/og-image.jpg">
 
+<link rel="icon" href="assets/logo-ds.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 
 <!-- Polices -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://s.wordpress.com">
 
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="style.css">
-<link rel="modulepreload" href="assets/js/scene.min.js">
 <script defer src="site-config.js"></script>
 <script defer src="script.js"></script>
-<script type="module" src="assets/js/scene.min.js"></script>
 
 <!-- Données structurées : entreprise, site et page -->
 <script type="application/ld+json">
@@ -117,7 +116,7 @@
 <header class="site-header" id="top">
   <div class="container nav-wrap">
     <a class="brand" href="#top" aria-label="DS Digital Studio — accueil">
-      <img src="assets/logo-ds.webp" alt="" width="38" height="38">
+      <img src="assets/logo-ds.svg" alt="" width="36" height="36">
       <span>DS Digital Studio</span>
     </a>
     <nav class="nav" id="mainnav" aria-label="Navigation principale">
@@ -138,27 +137,36 @@
 <main id="main">
 
   <!-- ================= HERO 3D ================= -->
-  <section class="hero" data-hero3d aria-labelledby="hero-title">
-    <canvas class="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-fallback" aria-hidden="true"></div>
-    <p class="orbit-caption" data-orbit-caption aria-hidden="true"></p>
-    <p class="orbit-hint" aria-hidden="true">Glissez pour faire tourner · cliquez sur un site</p>
-    <div class="hero-shade" aria-hidden="true"></div>
-
-    <div class="container hero-inner">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow"><i></i> Studio digital · Belfaux, Fribourg</p>
-        <h1 id="hero-title">Une présence digitale qui <span class="serif">travaille pour votre entreprise.</span></h1>
+        <h1 id="hero-title">Une présence digitale qui <span class="accent">travaille pour votre entreprise.</span></h1>
         <p class="hero-lead">Sites web, visibilité Google, publicité en ligne, identité visuelle et contenu professionnel, réunis chez un seul interlocuteur, avec une approche claire et orientée résultats.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#contact">Parler de mon projet <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-primary" href="#contact">Parler de mon projet <span aria-hidden="true">↗</span></a>
           <a class="btn btn-ghost" href="#realisations">Voir les réalisations</a>
         </div>
         <p class="hero-price">Sites web <strong>dès 750 CHF</strong> · Suisse romande et toute la Suisse</p>
       </div>
-    </div>
 
-    <a class="scroll-cue" href="#services" aria-label="Descendre vers les services"><span></span></a>
+      <div class="hero-stage" data-stage role="group" aria-label="Dernières réalisations">
+        <div class="stack">
+          <a class="stack-card" style="--i:0" href="https://delta-view.ch" target="_blank" rel="noopener">
+            <span class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>delta-view.ch</small></span>
+            <img src="assets/work/delta-view-640.webp" srcset="assets/work/delta-view-640.webp 640w, assets/work/delta-view.webp 1280w" sizes="(max-width:900px) 70vw, 420px" alt="Site delta-view.ch réalisé par DS Digital Studio" width="1280" height="800" loading="eager" decoding="async">
+          </a>
+          <a class="stack-card" style="--i:1" href="https://dymatec.ch" target="_blank" rel="noopener">
+            <span class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></span>
+            <img src="assets/work/dymatec-640.webp" srcset="assets/work/dymatec-640.webp 640w, assets/work/dymatec.webp 1280w" sizes="(max-width:900px) 70vw, 420px" alt="Site dymatec.ch réalisé par DS Digital Studio" width="1280" height="800" loading="eager" decoding="async">
+          </a>
+          <a class="stack-card" style="--i:2" href="https://fit2010.ch" target="_blank" rel="noopener">
+            <span class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></span>
+            <img src="assets/work/fit2010-640.webp" srcset="assets/work/fit2010-640.webp 640w, assets/work/fit2010.webp 1280w" sizes="(max-width:900px) 70vw, 420px" alt="Site fit2010.ch réalisé par DS Digital Studio" width="1280" height="800" fetchpriority="high" decoding="async">
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ================= BANDEAU CONFIANCE ================= -->
@@ -179,7 +187,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">01 — Services</span>
-        <h2 id="services-title">Tout ce qu’il faut pour être <span class="serif">vu, compris et choisi.</span></h2>
+        <h2 id="services-title">Tout ce qu’il faut pour être <span class="soft">vu, compris et choisi.</span></h2>
         <p>Un seul interlocuteur du site web jusqu’à la publicité. Vous gagnez du temps et votre image reste cohérente partout.</p>
       </div>
 
@@ -229,7 +237,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">02 — Réalisations</span>
-        <h2 id="work-title">Des sites en ligne, <span class="serif">au service de vrais clients.</span></h2>
+        <h2 id="work-title">Des sites en ligne, <span class="soft">au service de vrais clients.</span></h2>
         <p>Survolez une carte pour l’incliner, cliquez pour visiter le site.</p>
       </div>
 
@@ -237,7 +245,7 @@
            remplace l'adresse (deux fois dans src, une fois dans href et <small>),
            le titre, le texte et le secteur. -->
       <div class="projects">
-        <article class="project reveal" data-tilt data-domain="tytoo.ch" data-img="assets/work/tytoo.webp">
+        <article class="project reveal" data-tilt data-domain="tytoo.ch">
           <a href="https://tytoo.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>tytoo.ch</small></div>
@@ -250,7 +258,7 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt data-domain="fit2010.ch" data-img="assets/work/fit2010.webp">
+        <article class="project reveal" data-tilt data-domain="fit2010.ch">
           <a href="https://fit2010.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></div>
@@ -263,7 +271,7 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt data-domain="delta-view.ch" data-img="assets/work/delta-view.webp">
+        <article class="project reveal" data-tilt data-domain="delta-view.ch">
           <a href="https://delta-view.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>delta-view.ch</small></div>
@@ -276,7 +284,7 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt data-domain="dymatec.ch" data-img="assets/work/dymatec.webp">
+        <article class="project reveal" data-tilt data-domain="dymatec.ch">
           <a href="https://dymatec.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></div>
@@ -297,7 +305,7 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">03 — Packs sites web</span>
-        <h2 id="packs-title">Trois formules claires, <span class="serif">un budget annoncé d’avance.</span></h2>
+        <h2 id="packs-title">Trois formules claires, <span class="soft">un budget annoncé d’avance.</span></h2>
         <p>Chaque pack correspond à un besoin réel. Vous savez ce qui est inclus avant de démarrer, sans surprise en cours de projet.</p>
       </div>
 
@@ -336,7 +344,7 @@
           <h3 class="pack-name">Pro</h3>
           <p class="pack-for">Pour les entreprises qui veulent un site complet, structuré et réellement visible sur Google.</p>
           <p class="pack-price"><small>Dès</small><strong>1'400</strong><em>CHF</em></p>
-          <a class="btn btn-gold" href="#contact" data-service="Création de site web" data-pack="Pro">Choisir le Pack Pro <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-primary" href="#contact" data-service="Création de site web" data-pack="Pro">Choisir le Pack Pro <span aria-hidden="true">↗</span></a>
           <ul class="pack-list">
             <li>Jusqu’à 5 pages</li>
             <li>Design premium entièrement personnalisé</li>
@@ -412,7 +420,7 @@
       </div>
       <div class="about-copy reveal">
         <span class="kicker">04 — À propos</span>
-        <h2 id="about-title">Un interlocuteur unique <span class="serif">pour votre présence digitale.</span></h2>
+        <h2 id="about-title">Un interlocuteur unique <span class="soft">pour votre présence digitale.</span></h2>
         <p>DS Digital Studio est une entreprise basée à Belfaux, dans le canton de Fribourg, et dirigée par Darko Spasenov. L’objectif : proposer des solutions digitales claires, professionnelles et adaptées aux besoins réels de chaque entreprise.</p>
         <p>Du site web à la visibilité Google, jusqu’aux contenus photo/vidéo et aux supports QR &amp; NFC, chaque projet est conçu pour renforcer l’image et faciliter le développement de l’activité.</p>
         <dl class="about-facts">
@@ -429,7 +437,7 @@
     <div class="container faq-grid">
       <div class="section-head reveal">
         <span class="kicker">05 — Questions fréquentes</span>
-        <h2 id="faq-title">Les réponses <span class="serif">avant même de nous écrire.</span></h2>
+        <h2 id="faq-title">Les réponses <span class="soft">avant même de nous écrire.</span></h2>
         <p>Une question qui ne figure pas ici ? Posez-la directement via le formulaire.</p>
       </div>
 
@@ -467,7 +475,7 @@
     <div class="container contact-grid">
       <div class="contact-copy reveal">
         <span class="kicker">06 — Contact</span>
-        <h2 id="contact-title">Votre entreprise mérite d’être <span class="serif">vue comme elle le mérite.</span></h2>
+        <h2 id="contact-title">Votre entreprise mérite d’être <span class="soft">vue comme elle le mérite.</span></h2>
         <p>Expliquez votre besoin en quelques lignes. Vous recevrez une réponse claire, sans jargon inutile.</p>
 
         <div class="contact-links">
@@ -508,7 +516,7 @@
           <input type="hidden" name="_subject" value="Nouvelle demande — DS Digital Studio">
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <button class="btn btn-gold submit-btn" type="submit">Envoyer ma demande <span aria-hidden="true">↗</span></button>
+          <button class="btn btn-primary submit-btn" type="submit">Envoyer ma demande <span aria-hidden="true">↗</span></button>
           <div id="formAlert" class="form-alert" hidden role="status" aria-live="polite"></div>
           <p class="form-note">En envoyant ce formulaire, vous acceptez que vos informations soient utilisées uniquement pour répondre à votre demande. <a href="confidentialite.html">Confidentialité</a></p>
         </form>
@@ -520,10 +528,9 @@
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="container">
-    <p class="footer-big" aria-hidden="true">DS<span>.</span></p>
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo-ds.webp" alt="" width="44" height="44" loading="lazy">
+        <img src="assets/logo-ds.svg" alt="" width="40" height="40" loading="lazy">
         <div>
           <strong>DS Digital Studio</strong>
           <span>Votre image. Votre visibilité. Votre croissance.</span>
