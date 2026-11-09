@@ -1,260 +1,202 @@
 /* ============================================================
    DS DIGITAL STUDIO — script.js
-   Aucun réglage à faire ici : tout se passe dans site-config.js
+   Interface (menu, apparitions, inclinaison 3D, formulaire).
+   La scène 3D du hero est dans assets/js/scene.min.js.
    ============================================================ */
 (function () {
   'use strict';
 
+  document.documentElement.classList.add('js');
+
   const CFG = window.DS_CONFIG || {};
   const EMAIL = (CFG.contactEmail || '').trim();
-  const $ = (s, c) => (c || document).querySelector(s);
-  const $$ = (s, c) => Array.prototype.slice.call((c || document).querySelectorAll(s));
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* ---------- 1. Header : fond + barre de progression ---------- */
+  /* ---------- 1. Header, barre de progression, bouton mobile ---------- */
   const header = $('.site-header');
   const bar = $('#progressBar');
-  const toTop = $('#toTop');
+  const mobileCta = $('.mobile-cta');
+  const contact = $('#contact');
+  let ticking = false;
 
   function onScroll() {
     const y = window.scrollY;
-    if (header) header.classList.toggle('scrolled', y > 16);
-    if (toTop) toTop.classList.toggle('show', y > 700);
+    if (header) header.classList.toggle('scrolled', y > 20);
     if (bar) {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
     }
+    if (mobileCta) {
+      const nearContact = contact && contact.getBoundingClientRect().top < window.innerHeight * 0.9;
+      mobileCta.classList.toggle('show', y > window.innerHeight * 0.7 && !nearContact);
+    }
+    ticking = false;
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
   onScroll();
-
-  if (toTop) {
-    toTop.addEventListener('click', () =>
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    );
-  }
 
   /* ---------- 2. Menu mobile ---------- */
   const toggle = $('.menu-toggle');
-  const nav = $('.nav');
-
+  const nav = $('#mainnav');
   function closeMenu() {
     if (!nav) return;
     nav.classList.remove('open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Ouvrir le menu');
-    }
+    document.body.classList.remove('menu-open');
+    if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Ouvrir le menu'); }
   }
-
   if (toggle && nav) {
     toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const open = !nav.classList.contains('open');
+      nav.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     });
-    $$('.nav a').forEach(a => a.addEventListener('click', closeMenu));
+    $$('a', nav).forEach(a => a.addEventListener('click', closeMenu));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
   }
 
-  /* ---------- 3. Apparition au scroll ---------- */
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealables = $$('.reveal');
-
-  if (reduced || !('IntersectionObserver' in window)) {
-    revealables.forEach(el => el.classList.add('visible'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
+  /* Lien actif dans le menu selon la section visible */
+  const navLinks = $$('.nav a[href^="#"]:not(.nav-cta)');
+  if ('IntersectionObserver' in window && navLinks.length) {
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    revealables.forEach(el => io.observe(el));
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navLinks.forEach(a => { const s = $(a.getAttribute('href')); if (s) spy.observe(s); });
   }
 
-  /* ---------- 4. Aperçus des sites réalisés ----------
-     Les captures sont générées à la volée par le service mShots.
-     La première demande peut prendre quelques secondes : on garde
-     l'animation de chargement, puis on retente une fois.          */
+  /* ---------- 3. Apparition au défilement ---------- */
+  const reveals = $$('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const siblings = el.parentElement ? $$(':scope > .reveal', el.parentElement) : [];
+        el.style.transitionDelay = Math.min(siblings.indexOf(el), 4) * 70 + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  }
+
+  /* ---------- 4. Inclinaison 3D des cartes (souris uniquement) ---------- */
+  if (finePointer && !reduced) {
+    $$('[data-tilt]').forEach(card => {
+      const target = card.querySelector('.about-photo') || card;
+      let raf = 0;
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          target.style.transition = 'transform .15s ease-out';
+          target.style.transform = 'rotateY(' + (x * 9).toFixed(2) + 'deg) rotateX(' + (-y * 7).toFixed(2) + 'deg) translateZ(10px)';
+        });
+      });
+      card.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(raf);
+        target.style.transition = '';
+        target.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- 4 bis. Pile de réalisations du hero : suit la souris ---------- */
+  const stage = $('[data-stage]');
+  const stack = stage && $('.stack', stage);
+  if (stack && finePointer && !reduced) {
+    const hero = stage.closest('.hero');
+    let raf = 0;
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        stack.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg');
+        stack.style.setProperty('--rx', (8 - y * 6).toFixed(2) + 'deg');
+      });
+    });
+    hero.addEventListener('pointerleave', () => {
+      stack.style.removeProperty('--ry');
+      stack.style.removeProperty('--rx');
+    });
+  }
+
+  /* ---------- 5. Bandeau clients qui défile ---------- */
+  const marquee = $('.marquee');
+  if (marquee && !reduced) {
+    const track = $('.marquee-track', marquee);
+    Array.from(track.children).forEach(a => {
+      const c = a.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.tabIndex = -1;
+      track.appendChild(c);
+    });
+    marquee.classList.add('is-moving');
+  }
+
+  /* ---------- 6. Aperçus des sites (service mShots) ----------
+     La première demande peut prendre quelques secondes :
+     on garde l'animation de chargement, puis on retente une fois. */
   $$('.site-shot').forEach(img => {
     const box = img.closest('.shot');
     let retried = false;
-
-    function done() {
-      img.classList.add('loaded');
-      if (box) box.classList.add('done');
-    }
-
-    function retry() {
-      if (retried) return;
+    const done = () => { img.classList.add('loaded'); if (box) box.classList.add('done'); };
+    if (img.complete && img.naturalWidth > 0) { done(); return; }
+    img.addEventListener('load', done);
+    img.addEventListener('error', () => { if (box) box.classList.add('done'); });
+    setTimeout(() => {
+      if (retried || img.classList.contains('loaded')) return;
       retried = true;
       const src = img.getAttribute('src');
-      fetch(src, { mode: 'no-cors', cache: 'reload' })
-        .catch(() => {})
-        .finally(() => { img.src = src; });
-    }
-
-    if (img.complete && img.naturalWidth > 0) {
-      done();
-    } else {
-      img.addEventListener('load', done, { once: false });
-      img.addEventListener('error', () => { if (box) box.classList.add('done'); });
-      setTimeout(retry, 6000);
-    }
+      fetch(src, { mode: 'no-cors', cache: 'reload' }).catch(() => {}).finally(() => { img.src = src; });
+    }, 6000);
   });
 
-  /* ---------- 4 bis. Carrousel d'aperçus (hero) ---------- */
-  const sc = $('#showcase');
-  if (sc) {
-    const slides = $$('.site-shot', sc);
-    const dots = $$('.sc-dot', sc);
-    const urlLabel = $('[data-sc-url]', sc);
-    const openLink = $('[data-sc-link]', sc);
-    let index = 0;
-    let timer = null;
-    const DELAY = 6000;
-
-    function show(i) {
-      index = (i + slides.length) % slides.length;
-      slides.forEach((img, n) => img.classList.toggle('active', n === index));
-      dots.forEach((d, n) => {
-        d.classList.toggle('active', n === index);
-        d.setAttribute('aria-selected', n === index ? 'true' : 'false');
-      });
-      const cur = slides[index];
-      if (urlLabel) urlLabel.textContent = cur.dataset.url || '';
-      if (openLink) {
-        openLink.setAttribute('href', cur.dataset.link || '#');
-        openLink.setAttribute('aria-label', 'Voir le site ' + (cur.dataset.url || ''));
-      }
-    }
-
-    function start() {
-      if (reduced || slides.length < 2) return;
-      stop();
-      timer = setInterval(() => show(index + 1), DELAY);
-    }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function go(i) { show(i); start(); }
-
-    $('.sc-next', sc).addEventListener('click', () => go(index + 1));
-    $('.sc-prev', sc).addEventListener('click', () => go(index - 1));
-    dots.forEach((d, n) => d.addEventListener('click', () => go(n)));
-
-    sc.addEventListener('mouseenter', stop);
-    sc.addEventListener('mouseleave', start);
-    sc.addEventListener('focusin', stop);
-    sc.addEventListener('focusout', start);
-
-    /* navigation au clavier */
-    sc.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
-    });
-
-    /* balayage tactile */
-    let x0 = null;
-    sc.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; stop(); }, { passive: true });
-    sc.addEventListener('touchend', e => {
-      if (x0 === null) return;
-      const dx = e.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1)); else start();
-      x0 = null;
-    }, { passive: true });
-
-    /* pause quand la section n'est plus visible */
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(entries => {
-        entries.forEach(e => (e.isIntersecting ? start() : stop()));
-      }, { threshold: 0.25 }).observe(sc);
-    } else {
-      start();
-    }
-
-    show(0);
-  }
-
-  /* ---------- 4 ter. Carrousel des packs ---------- */
+  /* ---------- 7. Packs : sur mobile, ouvrir sur le Pack Pro ---------- */
   const track = $('#packsTrack');
-  if (track) {
-    const cards = $$('.pack', track);
-    const pDots = $$('.packs-dot');
-    let active = -1;
-    let raf = null;
-
-    function nearest() {
-      const mid = track.scrollLeft + track.clientWidth / 2;
-      let best = 0, dist = Infinity;
-      cards.forEach((c, i) => {
-        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
-        if (d < dist) { dist = d; best = i; }
-      });
-      return best;
-    }
-
-    function mark(i) {
-      if (i === active) return;
-      active = i;
-      cards.forEach((c, n) => c.classList.toggle('is-active', n === i));
-      pDots.forEach((d, n) => {
-        d.classList.toggle('active', n === i);
-        d.setAttribute('aria-current', n === i ? 'true' : 'false');
-      });
-    }
-
-    function center(i, smooth) {
-      const c = cards[(i + cards.length) % cards.length];
-      if (!c) return;
-      const left = c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2;
-      track.scrollTo({ left: left, behavior: smooth === false || reduced ? 'auto' : 'smooth' });
-      mark((i + cards.length) % cards.length);
-    }
-
-    track.addEventListener('scroll', () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { raf = null; mark(nearest()); });
-    }, { passive: true });
-
-    $$('.packs-arrow').forEach(btn => {
-      btn.addEventListener('click', () => {
-        center(active + (btn.dataset.packs === 'next' ? 1 : -1));
-      });
-    });
-    pDots.forEach((d, n) => d.addEventListener('click', () => center(n)));
-
-    track.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); center(active + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); center(active - 1); }
-    });
-
-    /* démarrage sur le pack recommandé (celui du milieu) */
-    const start = Math.max(0, cards.findIndex(c => c.classList.contains('pack-featured')));
-    const init = () => center(start, false);
-    init();
-    requestAnimationFrame(init);
-    window.addEventListener('load', init, { once: true });
-
-    let rz = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(rz);
-      rz = setTimeout(() => center(active, false), 180);
-    });
+  const featured = track && $('.pack-featured', track);
+  if (track && featured && track.scrollWidth > track.clientWidth) {
+    track.scrollLeft = featured.offsetLeft - (track.clientWidth - featured.offsetWidth) / 2;
   }
 
-  /* ---------- 5. Coordonnées injectées depuis site-config.js ---------- */
+  /* ---------- 8. Les boutons « Devis » pré-remplissent le formulaire ---------- */
+  const select = $('#serviceSelect');
+  const message = $('#messageField');
+  $$('[data-service]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wanted = btn.getAttribute('data-service');
+      if (select) {
+        const opt = Array.from(select.options).find(o => o.text === wanted);
+        if (opt) select.value = opt.value;
+      }
+      const pack = btn.getAttribute('data-pack');
+      if (pack && message && !message.value.trim()) message.value = 'Je suis intéressé·e par le Pack ' + pack + '. ';
+    });
+  });
+
+  /* ---------- 9. Coordonnées depuis site-config.js ---------- */
   if (EMAIL) {
     $$('a[href^="mailto:"]').forEach(a => {
       a.setAttribute('href', 'mailto:' + EMAIL);
-      if (a.textContent.indexOf('@') > -1) a.textContent = EMAIL;
+      if (a.textContent.indexOf('@') > -1 && !a.children.length) a.textContent = EMAIL;
     });
-    $$('.contact-link em, .about-card strong').forEach(el => {
-      if (el.textContent.indexOf('@') > -1) el.textContent = EMAIL;
-    });
+    $$('.contact-link em').forEach(el => { if (el.textContent.indexOf('@') > -1) el.textContent = EMAIL; });
   }
-
   const links = $('.contact-links');
   if (links && CFG.phone) {
     const tel = String(CFG.phone).trim();
@@ -264,26 +206,24 @@
     a.innerHTML =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       '<path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z"/></svg>' +
-      '<span><b>Téléphone</b><em>' + tel + '</em></span>';
+      '<span><b>Téléphone</b><em></em></span>';
+    a.querySelector('em').textContent = tel;
     links.appendChild(a);
   }
-
-  const socialWrap = $('.footer-cols div:last-child');
+  const socialWrap = $('[data-socials]');
   if (socialWrap) {
     [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['linkedin', 'LinkedIn']].forEach(([key, label]) => {
       if (!CFG[key]) return;
       const a = document.createElement('a');
-      a.href = CFG[key];
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.textContent = label;
+      a.href = CFG[key]; a.target = '_blank'; a.rel = 'noopener'; a.textContent = label;
       socialWrap.appendChild(a);
     });
   }
 
-  /* ---------- 6. Formulaire de contact ---------- */
+  /* ---------- 10. Formulaire de contact (Formspree) ---------- */
   const form = $('[data-contact-form]');
   const alertBox = $('#formAlert');
+  const fallback = () => 'Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.';
 
   function say(type, text) {
     if (!alertBox) return;
@@ -296,9 +236,7 @@
   if (form) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-
-      /* piège à robots */
-      if (form.website && form.website.value) return;
+      if (form.website && form.website.value) return; // piège à robots
 
       if (!form.checkValidity()) {
         say('error', 'Merci de compléter les champs obligatoires (nom, e-mail et description du projet).');
@@ -309,37 +247,26 @@
 
       const endpoint = (CFG.formspreeEndpoint || form.getAttribute('action') || '').trim();
       const btn = form.querySelector('.submit-btn');
-
-      if (!endpoint) {
-        say('error', 'Le formulaire n’est pas configuré. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
-        return;
-      }
-
+      if (!endpoint) { say('error', 'Le formulaire n’est pas configuré. ' + fallback()); return; }
       if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
       try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
-        });
-
+        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         if (res.ok) {
           form.reset();
           say('success', 'Merci, votre demande a bien été envoyée. Une réponse vous parviendra rapidement.');
         } else {
-          say('error', 'L’envoi a échoué. Écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
+          say('error', 'L’envoi a échoué. ' + fallback());
         }
       } catch (e) {
-        say('error', 'L’envoi a échoué. Vérifiez votre connexion ou écrivez directement à ' + (EMAIL || 'l’adresse de contact') + '.');
+        say('error', 'L’envoi a échoué. Vérifiez votre connexion ou ' + fallback().toLowerCase());
       } finally {
-        if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer ma demande <span>↗</span>'; }
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer ma demande <span aria-hidden="true">↗</span>'; }
       }
     });
   }
 
-  /* ---------- 7. Année automatique ---------- */
+  /* ---------- 11. Année automatique ---------- */
   const year = $('#currentYear');
   if (year) year.textContent = new Date().getFullYear();
-
 })();
