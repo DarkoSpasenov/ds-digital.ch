@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://ds-digital.ch/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Monogramme DS. en 3D — DS Digital Studio">
+<meta property="og:image:alt" content="Les réalisations de DS Digital Studio en orbite, en 3D">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DS Digital Studio — Sites web & visibilité Google">
 <meta name="twitter:description" content="Studio digital à Belfaux : sites web, Google, publicité, image et contenu.">
@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://s.wordpress.com" crossorigin>
+<link rel="preconnect" href="https://s.wordpress.com">
 
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="style.css">
@@ -140,7 +140,9 @@
   <!-- ================= HERO 3D ================= -->
   <section class="hero" data-hero3d aria-labelledby="hero-title">
     <canvas class="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-fallback" aria-hidden="true"><img src="assets/logo-ds.webp" alt="" width="260" height="260"></div>
+    <div class="hero-fallback" aria-hidden="true"></div>
+    <p class="orbit-caption" data-orbit-caption aria-hidden="true"></p>
+    <p class="orbit-hint" aria-hidden="true">Glissez pour faire tourner · cliquez sur un site</p>
     <div class="hero-shade" aria-hidden="true"></div>
 
     <div class="container hero-inner">
@@ -235,11 +237,11 @@
            remplace l'adresse (deux fois dans src, une fois dans href et <small>),
            le titre, le texte et le secteur. -->
       <div class="projects">
-        <article class="project reveal" data-tilt>
+        <article class="project reveal" data-tilt data-domain="tytoo.ch" data-img="assets/work/tytoo.webp">
           <a href="https://tytoo.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>tytoo.ch</small></div>
-              <div class="shot" data-domain="tytoo.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftytoo.ch?w=1200&amp;h=900" alt="Aperçu du site tytoo.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+              <div class="shot" data-domain="tytoo.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftytoo.ch?w=1200&amp;h=900" alt="Aperçu du site tytoo.ch réalisé par DS Digital Studio" width="1280" height="800" loading="lazy" decoding="async"></div>
             </div>
             <div class="project-meta">
               <div><h3>Tytoo</h3><p>Logiciel suisse de planning, d’heures et de notes de frais pour PME.</p></div>
@@ -248,11 +250,11 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt>
+        <article class="project reveal" data-tilt data-domain="fit2010.ch" data-img="assets/work/fit2010.webp">
           <a href="https://fit2010.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></div>
-              <div class="shot" data-domain="fit2010.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900" alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+              <div class="shot" data-domain="fit2010.ch"><img class="site-shot" src="assets/work/fit2010-640.webp" srcset="assets/work/fit2010-640.webp 640w, assets/work/fit2010.webp 1280w" sizes="(max-width:900px) 92vw, 560px" alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio" width="1280" height="800" loading="lazy" decoding="async"></div>
             </div>
             <div class="project-meta">
               <div><h3>Fit2010</h3><p>Club de fitness à Fribourg et Neuchâtel, ouvert 24h/24 à Fribourg.</p></div>
@@ -261,11 +263,11 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt>
+        <article class="project reveal" data-tilt data-domain="delta-view.ch" data-img="assets/work/delta-view.webp">
           <a href="https://delta-view.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>delta-view.ch</small></div>
-              <div class="shot" data-domain="delta-view.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdelta-view.ch?w=1200&amp;h=900" alt="Aperçu du site delta-view.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+              <div class="shot" data-domain="delta-view.ch"><img class="site-shot" src="assets/work/delta-view-640.webp" srcset="assets/work/delta-view-640.webp 640w, assets/work/delta-view.webp 1280w" sizes="(max-width:900px) 92vw, 560px" alt="Aperçu du site delta-view.ch réalisé par DS Digital Studio" width="1280" height="800" loading="lazy" decoding="async"></div>
             </div>
             <div class="project-meta">
               <div><h3>Delta View</h3><p>Photographe immobilier, vidéo et drone à Orbe, dans le canton de Vaud.</p></div>
@@ -274,11 +276,11 @@
           </a>
         </article>
 
-        <article class="project reveal" data-tilt>
+        <article class="project reveal" data-tilt data-domain="dymatec.ch" data-img="assets/work/dymatec.webp">
           <a href="https://dymatec.ch" target="_blank" rel="noopener" class="project-link">
             <div class="frame">
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></div>
-              <div class="shot" data-domain="dymatec.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdymatec.ch?w=1200&amp;h=900" alt="Aperçu du site dymatec.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+              <div class="shot" data-domain="dymatec.ch"><img class="site-shot" src="assets/work/dymatec-640.webp" srcset="assets/work/dymatec-640.webp 640w, assets/work/dymatec.webp 1280w" sizes="(max-width:900px) 92vw, 560px" alt="Aperçu du site dymatec.ch réalisé par DS Digital Studio" width="1280" height="800" loading="lazy" decoding="async"></div>
             </div>
             <div class="project-meta">
               <div><h3>Dymatec</h3><p>Sanitaire, chauffage et ventilation, pour particuliers et professionnels.</p></div>

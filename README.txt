@@ -8,9 +8,11 @@ le fichier 3D compilé (assets/js/scene.min.js) est déjà dans le dépôt.
 
 1. CE QUI A CHANGÉ PAR RAPPORT À LA VERSION 2
 -------------------------------------------------
-- Hero en 3D temps réel (Three.js) : le monogramme « DS. » du logo,
-  extrudé en relief, avec la sphère dorée et un anneau or. Il suit la
-  souris et réagit au défilement. Sur mobile il se place au-dessus du titre.
+- Hero en 3D temps réel (Three.js), dans l'espace : tes réalisations
+  sortent de la Terre et tournent en orbite au-dessus d'elle, parmi les
+  étoiles. Survol = nom du site, clic = ouverture du site, glisser à la
+  souris = faire tourner l'orbite. Le défilement éloigne la caméra.
+  Sur mobile, l'orbite se place au-dessus du titre.
 - Direction artistique sombre et or, alignée sur le logo.
 - Nouvelle section « Services » (6 métiers) : chaque bouton « Devis »
   pré-sélectionne le bon service dans le formulaire.
@@ -32,13 +34,15 @@ le fichier 3D compilé (assets/js/scene.min.js) est déjà dans le dépôt.
 
 2. MODIFIER LA SCÈNE 3D (optionnel)
 -------------------------------------------------
-Les sources sont dans src/ (scene.js, entry.js, ds-glyphs.json).
+Les sources sont dans src/ (scene.js, entry.js).
 Après une modification :
      npm install
      npm run build
 Cela régénère assets/js/scene.min.js. Pense à l'envoyer sur GitHub.
-src/extract-glyphs.cjs a servi à extraire le tracé des lettres
-« DS » depuis la police Montserrat (déjà fait, rien à relancer).
+Les sites affichés en orbite sont lus dans la section « Réalisations »
+de index.html : chaque <article class="project"> porte data-domain et
+data-img (capture 1280x800 dans assets/work/). Ajouter un projet dans
+cette section l'ajoute aussi automatiquement à l'orbite 3D.
 
 
 3. LE FORMULAIRE
@@ -52,13 +56,16 @@ action du formulaire dans index.html.
 -------------------------------------------------
 Dans index.html, section « 02 RÉALISATIONS », copie un bloc
 <article class="project"> ... </article> et remplace :
-  - l'adresse encodée dans src (%3A%2F%2F remplace "://")
-  - data-domain, le href, et le <small> de la barre du navigateur
+  - data-domain et data-img (capture 1280x800 en .webp dans assets/work/,
+    plus une version 640x400 nommée -640.webp)
+  - le src / srcset de l'image, le href, et le <small> de la barre
   - le titre <h3>, la phrase, l'étiquette <span class="pill">, le alt.
 Ajoute aussi le client dans le bandeau « Ils nous ont fait confiance ».
 
-Les aperçus viennent du service mShots de WordPress.com. La toute
-première demande peut prendre quelques secondes ; recharge une fois.
+Les captures de fit2010, delta-view et dymatec sont hébergées dans
+assets/work/. Pour tytoo.ch (pas de dépôt trouvé), la carte 3D reprend
+son titre et l'aperçu de la section vient du service mShots de
+WordPress.com : remplace-les par une vraie capture quand tu l'as.
 
 
 5. PRIX DES PACKS
