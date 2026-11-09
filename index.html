@@ -1,13 +1,17 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr-CH">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <title>Création de sites web dès 750 CHF — DS Digital Studio | Belfaux, Fribourg</title>
-<meta name="description" content="Trois packs de création de sites web dès 750 CHF, par DS Digital Studio à Belfaux (Fribourg). Sites vitrines, SEO local, fiche Google Business, publicité en ligne et identité visuelle.">
+<meta name="description" content="Studio digital à Belfaux (Fribourg) : création de sites web dès 750 CHF, SEO local et fiche Google Business, Google Ads & Meta Ads, identité visuelle, photo/vidéo, QR & NFC.">
 <meta name="author" content="Darko Spasenov">
-<meta name="theme-color" content="#0b0b0c">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="color-scheme" content="dark">
+<meta name="geo.region" content="CH-FR">
+<meta name="geo.placename" content="Belfaux">
 <link rel="canonical" href="https://ds-digital.ch/">
 
 <!-- Partage sur les réseaux -->
@@ -16,12 +20,15 @@
 <meta property="og:site_name" content="DS Digital Studio">
 <meta property="og:url" content="https://ds-digital.ch/">
 <meta property="og:title" content="DS Digital Studio — Sites web & visibilité Google en Suisse romande">
-<meta property="og:description" content="Sites web professionnels, fiche Google, publicité en ligne, identité visuelle et contenu. Un interlocuteur unique à Belfaux, Fribourg.">
-<meta property="og:image" content="https://ds-digital.ch/assets/logo-ds.png">
+<meta property="og:description" content="Sites web, fiche Google, publicité en ligne, identité visuelle et contenu. Un interlocuteur unique à Belfaux, Fribourg.">
+<meta property="og:image" content="https://ds-digital.ch/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Monogramme DS. en 3D — DS Digital Studio">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DS Digital Studio — Sites web & visibilité Google">
 <meta name="twitter:description" content="Studio digital à Belfaux : sites web, Google, publicité, image et contenu.">
-<meta name="twitter:image" content="https://ds-digital.ch/assets/logo-ds.png">
+<meta name="twitter:image" content="https://ds-digital.ch/assets/og-image.jpg">
 
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
@@ -29,61 +36,54 @@
 <!-- Polices -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
-<!-- Images externes -->
-<link rel="preconnect" href="https://images.pexels.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://s.wordpress.com" crossorigin>
 
+<script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="style.css">
+<link rel="modulepreload" href="assets/js/scene.min.js">
 <script defer src="site-config.js"></script>
 <script defer src="script.js"></script>
+<script type="module" src="assets/js/scene.min.js"></script>
 
-<!-- Données structurées : entreprise -->
+<!-- Données structurées : entreprise, site et page -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"ProfessionalService",
-  "@id":"https://ds-digital.ch/#studio",
-  "name":"DS Digital Studio",
-  "url":"https://ds-digital.ch/",
-  "logo":"https://ds-digital.ch/assets/logo-ds.png",
-  "image":"https://ds-digital.ch/assets/logo-ds.png",
-  "email":"info@ds-digital.ch",
-  "description":"Studio digital à Belfaux (Fribourg) : création de sites web, fiche Google Business et SEO local, Google Ads et Meta Ads, identité visuelle, photo et vidéo, solutions QR et NFC.",
-  "founder":{"@type":"Person","name":"Darko Spasenov","image":"https://ds-digital.ch/assets/darko-portrait.webp"},
-  "address":{
-    "@type":"PostalAddress",
-    "streetAddress":"Route de Lossy 39",
-    "postalCode":"1782",
-    "addressLocality":"Belfaux",
-    "addressRegion":"Fribourg",
-    "addressCountry":"CH"
-  },
-  "areaServed":[
-    {"@type":"AdministrativeArea","name":"Canton de Fribourg"},
-    {"@type":"Country","name":"Suisse"}
-  ],
-  "knowsLanguage":["fr","de"],
-  "hasOfferCatalog":{
-    "@type":"OfferCatalog",
-    "name":"Services DS Digital Studio",
-    "itemListElement":[
-      {"@type":"Offer","name":"Pack Essentiel — site vitrine 1 page",
-       "priceSpecification":{"@type":"PriceSpecification","minPrice":750,"priceCurrency":"CHF","valueAddedTaxIncluded":false},
-       "itemOffered":{"@type":"Service","name":"Création de site web — Pack Essentiel"}},
-      {"@type":"Offer","name":"Pack Pro — site jusqu'à 5 pages",
-       "priceSpecification":{"@type":"PriceSpecification","minPrice":1400,"priceCurrency":"CHF","valueAddedTaxIncluded":false},
-       "itemOffered":{"@type":"Service","name":"Création de site web — Pack Pro"}},
-      {"@type":"Offer","name":"Pack Premium — site jusqu'à 10 pages",
-       "priceSpecification":{"@type":"PriceSpecification","minPrice":2500,"priceCurrency":"CHF","valueAddedTaxIncluded":false},
-       "itemOffered":{"@type":"Service","name":"Création de site web — Pack Premium"}},
-      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Google Business & SEO local"}},
-      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Google Ads & Meta Ads"}},
-      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Identité visuelle & supports"}},
-      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photo & vidéo professionnelle"}},
-      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Solutions QR & NFC"}}
-    ]
-  }
+  "@graph":[
+    {
+      "@type":"ProfessionalService",
+      "@id":"https://ds-digital.ch/#studio",
+      "name":"DS Digital Studio",
+      "url":"https://ds-digital.ch/",
+      "logo":"https://ds-digital.ch/assets/logo-ds.png",
+      "image":"https://ds-digital.ch/assets/og-image.jpg",
+      "email":"info@ds-digital.ch",
+      "slogan":"Votre image. Votre visibilité. Votre croissance.",
+      "description":"Studio digital à Belfaux (Fribourg) : création de sites web, fiche Google Business et SEO local, Google Ads et Meta Ads, identité visuelle, photo et vidéo, solutions QR et NFC.",
+      "founder":{"@type":"Person","@id":"https://ds-digital.ch/#darko","name":"Darko Spasenov","jobTitle":"Fondateur","image":"https://ds-digital.ch/assets/darko-portrait.webp"},
+      "address":{"@type":"PostalAddress","streetAddress":"Route de Lossy 39","postalCode":"1782","addressLocality":"Belfaux","addressRegion":"Fribourg","addressCountry":"CH"},
+      "areaServed":[{"@type":"AdministrativeArea","name":"Canton de Fribourg"},{"@type":"Country","name":"Suisse"}],
+      "knowsLanguage":["fr","de"],
+      "priceRange":"CHF 750 – 2500+",
+      "hasOfferCatalog":{
+        "@type":"OfferCatalog",
+        "name":"Services DS Digital Studio",
+        "itemListElement":[
+          {"@type":"Offer","name":"Pack Essentiel — site vitrine 1 page","priceSpecification":{"@type":"PriceSpecification","minPrice":750,"priceCurrency":"CHF","valueAddedTaxIncluded":false},"itemOffered":{"@type":"Service","name":"Création de site web — Pack Essentiel"}},
+          {"@type":"Offer","name":"Pack Pro — site jusqu'à 5 pages","priceSpecification":{"@type":"PriceSpecification","minPrice":1400,"priceCurrency":"CHF","valueAddedTaxIncluded":false},"itemOffered":{"@type":"Service","name":"Création de site web — Pack Pro"}},
+          {"@type":"Offer","name":"Pack Premium — site jusqu'à 10 pages","priceSpecification":{"@type":"PriceSpecification","minPrice":2500,"priceCurrency":"CHF","valueAddedTaxIncluded":false},"itemOffered":{"@type":"Service","name":"Création de site web — Pack Premium"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Google Business & SEO local"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Google Ads & Meta Ads"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Identité visuelle & supports"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photo & vidéo professionnelle"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Solutions QR & NFC"}}
+        ]
+      }
+    },
+    {"@type":"WebSite","@id":"https://ds-digital.ch/#site","url":"https://ds-digital.ch/","name":"DS Digital Studio","inLanguage":"fr-CH","publisher":{"@id":"https://ds-digital.ch/#studio"}},
+    {"@type":"WebPage","@id":"https://ds-digital.ch/#page","url":"https://ds-digital.ch/","name":"Création de sites web dès 750 CHF — DS Digital Studio","isPartOf":{"@id":"https://ds-digital.ch/#site"},"about":{"@id":"https://ds-digital.ch/#studio"},"inLanguage":"fr-CH"}
+  ]
 }
 </script>
 
@@ -112,241 +112,281 @@
 
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
-<div class="noise" aria-hidden="true"></div>
 
 <!-- ================= HEADER ================= -->
 <header class="site-header" id="top">
   <div class="container nav-wrap">
     <a class="brand" href="#top" aria-label="DS Digital Studio — accueil">
-      <img src="assets/logo-ds.webp" alt="Logo DS Digital Studio" width="42" height="42">
+      <img src="assets/logo-ds.webp" alt="" width="38" height="38">
       <span>DS Digital Studio</span>
     </a>
-    <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainnav">
-      <span></span><span></span>
-    </button>
     <nav class="nav" id="mainnav" aria-label="Navigation principale">
-      <a href="#packs">Packs</a>
+      <a href="#services">Services</a>
       <a href="#realisations">Réalisations</a>
+      <a href="#packs">Packs</a>
       <a href="#apropos">À propos</a>
       <a href="#faq">FAQ</a>
       <a href="#contact" class="nav-cta">Demander un devis</a>
     </nav>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainnav">
+      <span></span><span></span>
+    </button>
   </div>
   <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 </header>
 
 <main id="main">
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1800"
-           alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
-    </div>
+  <!-- ================= HERO 3D ================= -->
+  <section class="hero" data-hero3d aria-labelledby="hero-title">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-fallback" aria-hidden="true"><img src="assets/logo-ds.webp" alt="" width="260" height="260"></div>
+    <div class="hero-shade" aria-hidden="true"></div>
 
-    <div class="container hero-grid">
-      <div class="hero-copy reveal">
+    <div class="container hero-inner">
+      <div class="hero-copy">
         <p class="eyebrow"><i></i> Studio digital · Belfaux, Fribourg</p>
-        <h1>Une présence digitale qui <span class="serif">travaille pour votre entreprise.</span></h1>
-        <p class="hero-lead">Sites web, visibilité Google, publicité en ligne, identité visuelle et contenu professionnel — réunis chez un seul interlocuteur, avec une approche claire et orientée résultats.</p>
-
+        <h1 id="hero-title">Une présence digitale qui <span class="serif">travaille pour votre entreprise.</span></h1>
+        <p class="hero-lead">Sites web, visibilité Google, publicité en ligne, identité visuelle et contenu professionnel, réunis chez un seul interlocuteur, avec une approche claire et orientée résultats.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#contact">Parler de mon projet <span>↗</span></a>
+          <a class="btn btn-gold" href="#contact">Parler de mon projet <span aria-hidden="true">↗</span></a>
           <a class="btn btn-ghost" href="#realisations">Voir les réalisations</a>
         </div>
-
-        <div class="hero-proof">
-          <div><strong>Web</strong><span>Conception &amp; conversion</span></div>
-          <div><strong>Google</strong><span>Visibilité locale</span></div>
-          <div><strong>Créatif</strong><span>Image &amp; contenu</span></div>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal delay-1">
-
-        <!-- ================================================================
-             CARROUSEL D'APERÇUS — pour ajouter un site, copie une ligne <img>
-             et une ligne <button class="sc-dot">, puis renseigne :
-               data-url   : le domaine affiché dans la barre du navigateur
-               data-link  : l'adresse complète du site
-               src        : l'adresse encodée (%3A%2F%2F remplace "://")
-             ================================================================ -->
-        <div class="showcase" id="showcase" aria-roledescription="carrousel" aria-label="Aperçus de sites réalisés">
-          <figure class="preview-window" style="margin:0">
-            <div class="browser-top" aria-hidden="true">
-              <i></i><i></i><i></i><small data-sc-url>fit2010.ch</small>
-            </div>
-            <div class="shot multi">
-
-              <img class="site-shot active" data-url="fit2010.ch" data-link="https://fit2010.ch"
-                   alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio"
-                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900"
-                   width="1200" height="900" loading="eager" decoding="async">
-
-              <img class="site-shot" data-url="delta-view.ch" data-link="https://delta-view.ch"
-                   alt="Aperçu du site delta-view.ch réalisé par DS Digital Studio"
-                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdelta-view.ch?w=1200&amp;h=900"
-                   width="1200" height="900" loading="eager" decoding="async">
-
-              <img class="site-shot" data-url="dymatec.ch" data-link="https://dymatec.ch"
-                   alt="Aperçu du site dymatec.ch"
-                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdymatec.ch?w=1200&amp;h=900"
-                   width="1200" height="900" loading="eager" decoding="async">
-
-              <a class="sc-open" data-sc-link href="https://fit2010.ch" target="_blank" rel="noopener">
-                Voir le site <span>↗</span>
-              </a>
-            </div>
-          </figure>
-
-          <button class="sc-arrow sc-prev" type="button" aria-label="Aperçu précédent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-          </button>
-          <button class="sc-arrow sc-next" type="button" aria-label="Aperçu suivant">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
-
-          <div class="sc-dots" role="tablist" aria-label="Choisir un aperçu">
-            <button class="sc-dot active" type="button" aria-label="Aperçu 1"></button>
-            <button class="sc-dot" type="button" aria-label="Aperçu 2"></button>
-            <button class="sc-dot" type="button" aria-label="Aperçu 3"></button>
-          </div>
-        </div>
-
-        <div class="hero-badge badge-b" aria-hidden="true">
-          <small>Google</small><strong>Plus visible.</strong><span>Fiche optimisée · SEO local</span>
-        </div>
-        <div class="hero-badge badge-a" aria-hidden="true">
-          <small>Stratégie</small><strong>+ d’impact</strong><span>Web · Ads · Contenu</span>
-        </div>
+        <p class="hero-price">Sites web <strong>dès 750 CHF</strong> · Suisse romande et toute la Suisse</p>
       </div>
     </div>
+
+    <a class="scroll-cue" href="#services" aria-label="Descendre vers les services"><span></span></a>
   </section>
 
   <!-- ================= BANDEAU CONFIANCE ================= -->
-  <section class="trust-strip" aria-label="Références clients">
-    <div class="container trust-inner">
-      <span class="trust-label">Ils nous ont fait confiance</span>
-      <a href="https://fit2010.ch" target="_blank" rel="noopener" class="client-wordmark">FIT2010<span>.CH</span></a>
-      <a href="https://dymatec.ch" target="_blank" rel="noopener" class="client-wordmark">DYMATEC<span>.CH</span></a>
-      <span class="more-projects">+ d’autres projets en cours</span>
+  <section class="trust" aria-label="Ils nous ont fait confiance">
+    <p class="trust-label">Ils nous ont fait confiance</p>
+    <div class="marquee">
+      <div class="marquee-track">
+        <a href="https://tytoo.ch" target="_blank" rel="noopener">TYTOO<span>.CH</span></a>
+        <a href="https://fit2010.ch" target="_blank" rel="noopener">FIT2010<span>.CH</span></a>
+        <a href="https://delta-view.ch" target="_blank" rel="noopener">DELTA-VIEW<span>.CH</span></a>
+        <a href="https://dymatec.ch" target="_blank" rel="noopener">DYMATEC<span>.CH</span></a>
+      </div>
     </div>
   </section>
 
-  <!-- ================= PACKS SITES WEB ================= -->
-  <section class="section" id="packs">
+  <!-- ================= 01 SERVICES ================= -->
+  <section class="section" id="services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-head reveal">
-        <div>
-          <span class="kicker">01 — Packs sites web</span>
-          <h2>Trois formules claires, un budget annoncé d’avance.</h2>
-        </div>
+        <span class="kicker">01 — Services</span>
+        <h2 id="services-title">Tout ce qu’il faut pour être <span class="serif">vu, compris et choisi.</span></h2>
+        <p>Un seul interlocuteur du site web jusqu’à la publicité. Vous gagnez du temps et votre image reste cohérente partout.</p>
+      </div>
+
+      <ol class="services">
+        <li class="service reveal">
+          <span class="service-num">01</span>
+          <h3>Création de sites web</h3>
+          <p>Sites vitrines rapides et pensés pour convertir : design sur mesure, affichage parfait sur mobile, formulaire et boutons d’appel.</p>
+          <a class="service-link" href="#packs" aria-label="Voir les packs sites web">Packs <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="service reveal">
+          <span class="service-num">02</span>
+          <h3>Google Business &amp; SEO local</h3>
+          <p>Création et optimisation de votre fiche Google, bases SEO propres pour apparaître quand on cherche votre métier près de chez vous.</p>
+          <a class="service-link" href="#contact" data-service="Google Business / SEO local" aria-label="Demander un devis SEO local">Devis <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="service reveal">
+          <span class="service-num">03</span>
+          <h3>Google Ads &amp; Meta Ads</h3>
+          <p>Campagnes publicitaires sur Google, Facebook et Instagram pour toucher les bonnes personnes au bon moment.</p>
+          <a class="service-link" href="#contact" data-service="Google Ads / Meta Ads" aria-label="Demander un devis publicité">Devis <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="service reveal">
+          <span class="service-num">04</span>
+          <h3>Identité visuelle &amp; print</h3>
+          <p>Logo, couleurs, cartes de visite et supports imprimés pour une image reconnaissable et professionnelle.</p>
+          <a class="service-link" href="#contact" data-service="Identité visuelle &amp; supports" aria-label="Demander un devis identité visuelle">Devis <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="service reveal">
+          <span class="service-num">05</span>
+          <h3>Photo &amp; vidéo</h3>
+          <p>Contenus professionnels pour votre site et vos réseaux : vos locaux, votre équipe, vos réalisations.</p>
+          <a class="service-link" href="#contact" data-service="Photo &amp; vidéo" aria-label="Demander un devis photo et vidéo">Devis <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="service reveal">
+          <span class="service-num">06</span>
+          <h3>QR code &amp; NFC</h3>
+          <p>Supports connectés pour partager votre contact, votre site ou un avis Google en un geste.</p>
+          <a class="service-link" href="#contact" data-service="QR code / NFC" aria-label="Demander un devis QR et NFC">Devis <span aria-hidden="true">↗</span></a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 02 RÉALISATIONS ================= -->
+  <section class="section section-alt" id="realisations" aria-labelledby="work-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">02 — Réalisations</span>
+        <h2 id="work-title">Des sites en ligne, <span class="serif">au service de vrais clients.</span></h2>
+        <p>Survolez une carte pour l’incliner, cliquez pour visiter le site.</p>
+      </div>
+
+      <!-- Pour ajouter un projet : copie un <article class="project">,
+           remplace l'adresse (deux fois dans src, une fois dans href et <small>),
+           le titre, le texte et le secteur. -->
+      <div class="projects">
+        <article class="project reveal" data-tilt>
+          <a href="https://tytoo.ch" target="_blank" rel="noopener" class="project-link">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>tytoo.ch</small></div>
+              <div class="shot" data-domain="tytoo.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftytoo.ch?w=1200&amp;h=900" alt="Aperçu du site tytoo.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+            </div>
+            <div class="project-meta">
+              <div><h3>Tytoo</h3><p>Logiciel suisse de planning, d’heures et de notes de frais pour PME.</p></div>
+              <span class="pill">SaaS</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="project reveal" data-tilt>
+          <a href="https://fit2010.ch" target="_blank" rel="noopener" class="project-link">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></div>
+              <div class="shot" data-domain="fit2010.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffit2010.ch?w=1200&amp;h=900" alt="Aperçu du site fit2010.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+            </div>
+            <div class="project-meta">
+              <div><h3>Fit2010</h3><p>Club de fitness à Fribourg et Neuchâtel, ouvert 24h/24 à Fribourg.</p></div>
+              <span class="pill">Fitness</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="project reveal" data-tilt>
+          <a href="https://delta-view.ch" target="_blank" rel="noopener" class="project-link">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>delta-view.ch</small></div>
+              <div class="shot" data-domain="delta-view.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdelta-view.ch?w=1200&amp;h=900" alt="Aperçu du site delta-view.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+            </div>
+            <div class="project-meta">
+              <div><h3>Delta View</h3><p>Photographe immobilier, vidéo et drone à Orbe, dans le canton de Vaud.</p></div>
+              <span class="pill">Immobilier</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="project reveal" data-tilt>
+          <a href="https://dymatec.ch" target="_blank" rel="noopener" class="project-link">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></div>
+              <div class="shot" data-domain="dymatec.ch"><img class="site-shot" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdymatec.ch?w=1200&amp;h=900" alt="Aperçu du site dymatec.ch réalisé par DS Digital Studio" width="1200" height="900" loading="lazy" decoding="async"></div>
+            </div>
+            <div class="project-meta">
+              <div><h3>Dymatec</h3><p>Sanitaire, chauffage et ventilation, pour particuliers et professionnels.</p></div>
+              <span class="pill">Artisan</span>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 PACKS ================= -->
+  <section class="section" id="packs" aria-labelledby="packs-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">03 — Packs sites web</span>
+        <h2 id="packs-title">Trois formules claires, <span class="serif">un budget annoncé d’avance.</span></h2>
         <p>Chaque pack correspond à un besoin réel. Vous savez ce qui est inclus avant de démarrer, sans surprise en cours de projet.</p>
       </div>
 
-      <div class="packs-slider reveal">
-        <div class="packs" id="packsTrack" tabindex="0" role="group"
-             aria-roledescription="carrousel" aria-label="Packs de création de sites web">
-
-        <!-- ---------- PACK 1 ---------- -->
-        <article class="pack">
-          <div class="pack-head">
-            <span class="pack-name">Essentiel</span>
-            <p class="pack-for">Pour indépendants et petites entreprises souhaitant une présence professionnelle en ligne.</p>
-            <p class="pack-price"><small>Dès</small><strong>750</strong><em>CHF</em></p>
-          </div>
+      <!-- Pour changer un prix : modifie aussi "minPrice" dans les données
+           structurées en haut du fichier et la balise <title>. -->
+      <div class="packs" id="packsTrack">
+        <article class="pack reveal">
+          <h3 class="pack-name">Essentiel</h3>
+          <p class="pack-for">Pour indépendants et petites entreprises souhaitant une présence professionnelle en ligne.</p>
+          <p class="pack-price"><small>Dès</small><strong>750</strong><em>CHF</em></p>
+          <a class="btn btn-outline" href="#contact" data-service="Création de site web" data-pack="Essentiel">Demander mon site <span aria-hidden="true">↗</span></a>
           <ul class="pack-list">
             <li>Site vitrine professionnel</li>
             <li>1 page complète</li>
             <li>Design personnalisé</li>
             <li>Responsive mobile / tablette / ordinateur</li>
-            <li>Présentation de l’entreprise</li>
-            <li>Présentation des services</li>
-            <li>Galerie / réalisations</li>
             <li>Formulaire de contact</li>
             <li>Boutons téléphone / e-mail / WhatsApp</li>
-            <li>Liens réseaux sociaux</li>
-            <li>SEO de base</li>
-            <li>Optimisation des performances</li>
-            <li>1 série de corrections</li>
           </ul>
-          <a class="btn btn-outline pack-cta" href="#contact">Demander mon site <span>↗</span></a>
+          <details class="pack-more">
+            <summary>Tout ce qui est inclus</summary>
+            <ul class="pack-list">
+              <li>Présentation de l’entreprise</li>
+              <li>Présentation des services</li>
+              <li>Galerie / réalisations</li>
+              <li>Liens réseaux sociaux</li>
+              <li>SEO de base</li>
+              <li>Optimisation des performances</li>
+              <li>1 série de corrections</li>
+            </ul>
+          </details>
         </article>
 
-        <!-- ---------- PACK 2 — mis en avant ---------- -->
-        <article class="pack pack-featured">
+        <article class="pack pack-featured reveal">
           <span class="pack-badge">Le plus choisi</span>
-          <div class="pack-head">
-            <span class="pack-name">Pro</span>
-            <p class="pack-for">Pour les entreprises qui veulent un site complet, structuré et réellement visible sur Google.</p>
-            <p class="pack-price"><small>Dès</small><strong>1'400</strong><em>CHF</em></p>
-          </div>
+          <h3 class="pack-name">Pro</h3>
+          <p class="pack-for">Pour les entreprises qui veulent un site complet, structuré et réellement visible sur Google.</p>
+          <p class="pack-price"><small>Dès</small><strong>1'400</strong><em>CHF</em></p>
+          <a class="btn btn-gold" href="#contact" data-service="Création de site web" data-pack="Pro">Choisir le Pack Pro <span aria-hidden="true">↗</span></a>
           <ul class="pack-list">
             <li>Jusqu’à 5 pages</li>
             <li>Design premium entièrement personnalisé</li>
-            <li>Responsive mobile / tablette / ordinateur</li>
-            <li>Accueil</li>
-            <li>Services</li>
-            <li>À propos</li>
-            <li>Réalisations / galerie</li>
-            <li>Contact</li>
-            <li>Formulaire de contact avancé</li>
-            <li>Intégration Google Maps</li>
-            <li>Liens réseaux sociaux</li>
-            <li>Boutons téléphone / WhatsApp</li>
             <li>SEO optimisé</li>
-            <li>Google Analytics</li>
             <li>Optimisation Google Business</li>
+            <li>Intégration Google Maps</li>
             <li>Animations professionnelles</li>
-            <li>Optimisation vitesse et performances</li>
-            <li>2 séries de corrections</li>
           </ul>
-          <a class="btn btn-gold pack-cta" href="#contact">Choisir le Pack Pro <span>↗</span></a>
+          <details class="pack-more">
+            <summary>Tout ce qui est inclus</summary>
+            <ul class="pack-list">
+              <li>Responsive mobile / tablette / ordinateur</li>
+              <li>Accueil, Services, À propos, Réalisations / galerie, Contact</li>
+              <li>Formulaire de contact avancé</li>
+              <li>Liens réseaux sociaux</li>
+              <li>Boutons téléphone / WhatsApp</li>
+              <li>Google Analytics</li>
+              <li>Optimisation vitesse et performances</li>
+              <li>2 séries de corrections</li>
+            </ul>
+          </details>
         </article>
 
-        <!-- ---------- PACK 3 ---------- -->
-        <article class="pack">
-          <div class="pack-head">
-            <span class="pack-name">Premium</span>
-            <p class="pack-for">Pour les entreprises ayant besoin d’un site plus complet avec des fonctionnalités avancées.</p>
-            <p class="pack-price"><small>Dès</small><strong>2'500</strong><em>CHF</em></p>
-          </div>
+        <article class="pack reveal">
+          <h3 class="pack-name">Premium</h3>
+          <p class="pack-for">Pour les entreprises ayant besoin d’un site plus complet avec des fonctionnalités avancées.</p>
+          <p class="pack-price"><small>Dès</small><strong>2'500</strong><em>CHF</em></p>
+          <a class="btn btn-outline" href="#contact" data-service="Création de site web" data-pack="Premium">Parler de mon projet <span aria-hidden="true">↗</span></a>
           <ul class="pack-list">
             <li>Jusqu’à 10 pages</li>
             <li>Design premium sur mesure</li>
-            <li>Responsive mobile / tablette / ordinateur</li>
             <li>SEO avancé</li>
-            <li>Google Analytics</li>
-            <li>Optimisation Google Business</li>
             <li>Animations avancées</li>
             <li>Formulaires avancés</li>
-            <li>Système de réservation <i>si nécessaire</i></li>
-            <li>Paiement en ligne <i>si nécessaire</i></li>
-            <li>Espace client / espace membre <i>si nécessaire</i></li>
-            <li>Catalogue de produits ou services <i>si nécessaire</i></li>
             <li>Automatisations selon le projet</li>
-            <li>Optimisation performances</li>
-            <li>Sécurité et configuration technique</li>
-            <li>3 séries de corrections</li>
           </ul>
-          <a class="btn btn-dark pack-cta" href="#contact">Parler de mon projet <span>↗</span></a>
+          <details class="pack-more">
+            <summary>Tout ce qui est inclus</summary>
+            <ul class="pack-list">
+              <li>Responsive mobile / tablette / ordinateur</li>
+              <li>Google Analytics</li>
+              <li>Optimisation Google Business</li>
+              <li>Système de réservation <i>si nécessaire</i></li>
+              <li>Paiement en ligne <i>si nécessaire</i></li>
+              <li>Espace client / espace membre <i>si nécessaire</i></li>
+              <li>Catalogue de produits ou services <i>si nécessaire</i></li>
+              <li>Optimisation performances</li>
+              <li>Sécurité et configuration technique</li>
+              <li>3 séries de corrections</li>
+            </ul>
+          </details>
         </article>
-
-        </div>
-
-        <div class="packs-controls">
-          <button class="packs-arrow" type="button" data-packs="prev" aria-label="Pack précédent" aria-controls="packsTrack">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-          </button>
-          <div class="packs-dots">
-            <button class="packs-dot" type="button" aria-label="Pack Essentiel"></button>
-            <button class="packs-dot active" type="button" aria-label="Pack Pro"></button>
-            <button class="packs-dot" type="button" aria-label="Pack Premium"></button>
-          </div>
-          <button class="packs-arrow" type="button" data-packs="next" aria-label="Pack suivant" aria-controls="packsTrack">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
       </div>
 
       <div class="pack-notes reveal">
@@ -356,99 +396,77 @@
     </div>
   </section>
 
-  <!-- ================= À PROPOS ================= -->
-  <section class="section section-dark" id="apropos">
+  <!-- ================= 04 À PROPOS ================= -->
+  <section class="section section-alt" id="apropos" aria-labelledby="about-title">
     <div class="container about-grid">
-      <div class="about-copy reveal">
-        <span class="kicker light">03 — À propos</span>
-        <h2>Un interlocuteur unique pour votre présence digitale.</h2>
-        <p>DS Digital Studio est une entreprise basée à Belfaux, dans le canton de Fribourg, et dirigée par Darko Spasenov. L’objectif : proposer des solutions digitales claires, professionnelles et adaptées aux besoins réels de chaque entreprise.</p>
-        <p>Du site web à la visibilité Google, jusqu’aux contenus photo/vidéo et aux supports QR &amp; NFC, chaque projet est conçu pour renforcer l’image et faciliter le développement de l’activité.</p>
-        <a class="text-link" href="#contact">Discuter de votre projet <span>↗</span></a>
-      </div>
-
-      <div class="about-visual reveal delay-1">
+      <div class="about-visual reveal" data-tilt>
         <div class="about-photo">
           <img src="assets/darko-portrait.webp"
                srcset="assets/darko-portrait-600.webp 600w, assets/darko-portrait.webp 1000w"
-               sizes="(max-width:1080px) 100vw, 440px"
+               sizes="(max-width:900px) 90vw, 440px"
                alt="Darko Spasenov, fondateur de DS Digital Studio"
                width="1000" height="1250" loading="lazy" decoding="async">
         </div>
-        <div class="about-card">
-          <div><span>Fondateur</span><strong>Darko Spasenov</strong></div>
-          <div><span>Localisation</span><strong>Belfaux, Fribourg</strong></div>
-          <div><span>Contact</span><strong>info@ds-digital.ch</strong></div>
-        </div>
+      </div>
+      <div class="about-copy reveal">
+        <span class="kicker">04 — À propos</span>
+        <h2 id="about-title">Un interlocuteur unique <span class="serif">pour votre présence digitale.</span></h2>
+        <p>DS Digital Studio est une entreprise basée à Belfaux, dans le canton de Fribourg, et dirigée par Darko Spasenov. L’objectif : proposer des solutions digitales claires, professionnelles et adaptées aux besoins réels de chaque entreprise.</p>
+        <p>Du site web à la visibilité Google, jusqu’aux contenus photo/vidéo et aux supports QR &amp; NFC, chaque projet est conçu pour renforcer l’image et faciliter le développement de l’activité.</p>
+        <dl class="about-facts">
+          <div><dt>Fondateur</dt><dd>Darko Spasenov</dd></div>
+          <div><dt>Basé à</dt><dd>Belfaux, Fribourg</dd></div>
+          <div><dt>Zone</dt><dd>Toute la Suisse, sur place ou à distance</dd></div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- ================= FAQ ================= -->
-  <section class="section" id="faq">
-    <div class="container">
+  <!-- ================= 05 FAQ ================= -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="container faq-grid">
       <div class="section-head reveal">
-        <div>
-          <span class="kicker">04 — Questions fréquentes</span>
-          <h2>Les réponses avant même de nous écrire.</h2>
-        </div>
+        <span class="kicker">05 — Questions fréquentes</span>
+        <h2 id="faq-title">Les réponses <span class="serif">avant même de nous écrire.</span></h2>
         <p>Une question qui ne figure pas ici ? Posez-la directement via le formulaire.</p>
       </div>
 
       <div class="faq reveal">
         <details>
           <summary>Combien de temps faut-il pour créer un site web ?</summary>
-          <p class="answer">Cela dépend du nombre de pages et des fonctionnalités. Un site vitrine simple avance vite dès que les textes, photos et informations de l’entreprise sont réunis. Le planning est annoncé avant le démarrage du projet.</p>
+          <p>Cela dépend du nombre de pages et des fonctionnalités. Un site vitrine simple avance vite dès que les textes, photos et informations de l’entreprise sont réunis. Le planning est annoncé avant le démarrage du projet.</p>
         </details>
         <details>
           <summary>Travaillez-vous uniquement dans le canton de Fribourg ?</summary>
-          <p class="answer">DS Digital Studio est basé à Belfaux, dans le canton de Fribourg, et accompagne des entreprises partout en Suisse. Les échanges peuvent se faire sur place ou à distance.</p>
+          <p>DS Digital Studio est basé à Belfaux, dans le canton de Fribourg, et accompagne des entreprises partout en Suisse. Les échanges peuvent se faire sur place ou à distance.</p>
         </details>
         <details>
           <summary>Puis-je modifier mon site moi-même ensuite ?</summary>
-          <p class="answer">Oui. La solution est choisie selon votre besoin : certains sites sont pensés pour être mis à jour par vos soins, d’autres restent gérés par DS Digital Studio. Le fonctionnement est expliqué avant la mise en ligne.</p>
+          <p>Oui. La solution est choisie selon votre besoin : certains sites sont pensés pour être mis à jour par vos soins, d’autres restent gérés par DS Digital Studio. Le fonctionnement est expliqué avant la mise en ligne.</p>
         </details>
         <details>
           <summary>Le site sera-t-il visible sur Google ?</summary>
-          <p class="answer">Chaque site est construit avec des bases techniques propres : structure claire, titres et descriptions travaillés, chargement rapide et affichage mobile. La fiche Google Business peut aussi être créée ou optimisée pour renforcer la visibilité locale.</p>
+          <p>Chaque site est construit avec des bases techniques propres : structure claire, titres et descriptions travaillés, chargement rapide et affichage mobile. La fiche Google Business peut aussi être créée ou optimisée pour renforcer la visibilité locale.</p>
         </details>
         <details>
           <summary>Que comprend le prix indiqué dans les packs ?</summary>
-          <p class="answer">Le montant annoncé correspond à la création du site et aux prestations listées dans le pack. Le nom de domaine et l’hébergement ne sont pas inclus, de même que les éventuels frais de services tiers, licences, solutions de paiement ou abonnements externes. Un devis définitif est établi après analyse de votre projet.</p>
+          <p>Le montant annoncé correspond à la création du site et aux prestations listées dans le pack. Le nom de domaine et l’hébergement ne sont pas inclus, de même que les éventuels frais de services tiers, licences, solutions de paiement ou abonnements externes. Un devis définitif est établi après analyse du projet.</p>
         </details>
         <details>
           <summary>Que faut-il préparer avant de démarrer ?</summary>
-          <p class="answer">Vos prestations, vos coordonnées, vos horaires, votre logo si vous en avez un, et vos photos si vous en possédez. Si les photos manquent, elles peuvent être réalisées dans le cadre de la prestation photo et vidéo.</p>
+          <p>Vos prestations, vos coordonnées, vos horaires, votre logo si vous en avez un, et vos photos si vous en possédez. Si les photos manquent, elles peuvent être réalisées dans le cadre de la prestation photo et vidéo.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- ================= CTA ================= -->
-  <section class="cta-band">
-    <div class="bg" aria-hidden="true">
-      <img src="https://images.pexels.com/photos/326518/pexels-photo-326518.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
-           alt="" width="1600" height="1000" loading="lazy" decoding="async">
-    </div>
-    <div class="container cta-inner reveal">
-      <span class="kicker light">Prêt à avancer ?</span>
-      <h2>Votre entreprise mérite d’être <span class="serif">vue comme elle le mérite.</span></h2>
-      <p>Expliquez votre besoin en quelques lignes. Vous recevrez une réponse claire, sans jargon inutile.</p>
-      <div class="cta-actions">
-        <a class="btn btn-gold" href="#contact">Demander un devis <span>↗</span></a>
-        <a class="btn btn-ghost" href="mailto:info@ds-digital.ch">info@ds-digital.ch</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section class="section section-soft" id="contact">
+  <!-- ================= 06 CONTACT ================= -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
     <div class="container contact-grid">
-
       <div class="contact-copy reveal">
-        <span class="kicker">05 — Contact</span>
-        <h2>Parlons de votre prochain projet.</h2>
-        <p>Expliquez simplement ce dont vous avez besoin. DS Digital Studio pourra ensuite vous proposer une solution adaptée.</p>
+        <span class="kicker">06 — Contact</span>
+        <h2 id="contact-title">Votre entreprise mérite d’être <span class="serif">vue comme elle le mérite.</span></h2>
+        <p>Expliquez votre besoin en quelques lignes. Vous recevrez une réponse claire, sans jargon inutile.</p>
 
         <div class="contact-links">
           <a class="contact-link" href="mailto:info@ds-digital.ch">
@@ -460,16 +478,9 @@
             <span><b>Adresse</b><em>Route de Lossy 39, 1782 Belfaux</em></span>
           </a>
         </div>
-
-        <div class="address-card">
-          <span>DS Digital Studio</span>
-          <strong>Darko Spasenov</strong>
-          <p>Route de Lossy 39<br>1782 Belfaux · Suisse</p>
-        </div>
       </div>
 
-      <div class="form-card reveal delay-1">
-        <div id="formAlert" class="form-alert" hidden role="status" aria-live="polite"></div>
+      <div class="form-card reveal">
         <form class="contact-form" data-contact-form action="https://formspree.io/f/xzebjypp" method="POST" novalidate>
           <div class="field-row">
             <label>Nom *<input type="text" name="name" required autocomplete="name" placeholder="Votre nom"></label>
@@ -480,7 +491,7 @@
             <label>Téléphone<input type="tel" name="phone" autocomplete="tel" placeholder="+41 …"></label>
           </div>
           <label>Service souhaité
-            <select name="service">
+            <select name="service" id="serviceSelect">
               <option>Création de site web</option>
               <option>Google Business / SEO local</option>
               <option>Google Ads / Meta Ads</option>
@@ -490,16 +501,16 @@
               <option>Autre projet</option>
             </select>
           </label>
-          <label>Votre projet *<textarea name="message" required rows="5" placeholder="Décrivez votre besoin en quelques lignes…"></textarea></label>
+          <label>Votre projet *<textarea name="message" id="messageField" required rows="5" placeholder="Décrivez votre besoin en quelques lignes…"></textarea></label>
 
           <input type="hidden" name="_subject" value="Nouvelle demande — DS Digital Studio">
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <button class="btn btn-gold submit-btn" type="submit">Envoyer ma demande <span>↗</span></button>
-          <p class="form-note">En envoyant ce formulaire, vous acceptez que vos informations soient utilisées uniquement pour répondre à votre demande.</p>
+          <button class="btn btn-gold submit-btn" type="submit">Envoyer ma demande <span aria-hidden="true">↗</span></button>
+          <div id="formAlert" class="form-alert" hidden role="status" aria-live="polite"></div>
+          <p class="form-note">En envoyant ce formulaire, vous acceptez que vos informations soient utilisées uniquement pour répondre à votre demande. <a href="confidentialite.html">Confidentialité</a></p>
         </form>
       </div>
-
     </div>
   </section>
 </main>
@@ -507,33 +518,30 @@
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="container">
+    <p class="footer-big" aria-hidden="true">DS<span>.</span></p>
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo-ds.webp" alt="DS Digital Studio" width="50" height="50" loading="lazy">
+        <img src="assets/logo-ds.webp" alt="" width="44" height="44" loading="lazy">
         <div>
           <strong>DS Digital Studio</strong>
           <span>Votre image. Votre visibilité. Votre croissance.</span>
         </div>
       </div>
-
-      <div class="footer-cols">
-        <div>
-          <h4>Navigation</h4>
-          <a href="#packs">Packs</a>
-          <a href="#realisations">Réalisations</a>
-              <a href="#apropos">À propos</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div>
-          <h4>Contact &amp; infos</h4>
-          <a href="mailto:info@ds-digital.ch">info@ds-digital.ch</a>
-          <p>Route de Lossy 39<br>1782 Belfaux</p>
-          <a href="mentions-legales.html">Mentions légales</a>
-          <a href="confidentialite.html">Confidentialité</a>
-        </div>
+      <nav class="footer-col" aria-label="Pied de page">
+        <h2>Navigation</h2>
+        <a href="#services">Services</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#packs">Packs</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="footer-col" data-socials>
+        <h2>Contact &amp; infos</h2>
+        <a href="mailto:info@ds-digital.ch">info@ds-digital.ch</a>
+        <p>Route de Lossy 39<br>1782 Belfaux</p>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span>© <span id="currentYear">2026</span> DS Digital Studio. Tous droits réservés.</span>
       <span>Site conçu et développé par Darko Spasenov</span>
@@ -541,9 +549,7 @@
   </div>
 </footer>
 
-<button class="to-top" id="toTop" aria-label="Revenir en haut de la page">
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
+<a class="mobile-cta" href="#contact">Demander un devis <span aria-hidden="true">↗</span></a>
 
 </body>
 </html>

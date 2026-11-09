@@ -1,174 +1,83 @@
-DS DIGITAL STUDIO — VERSION 2 (GITHUB PAGES)
-=============================================
+DS DIGITAL STUDIO — VERSION 3 (SITE 3D, GITHUB PAGES)
+====================================================
 
-100 % statique. Aucun PHP, aucune base de données.
+Site 100 % statique, publié par GitHub Pages depuis la branche main.
+Aucune étape de compilation n'est nécessaire pour mettre le site en ligne :
+le fichier 3D compilé (assets/js/scene.min.js) est déjà dans le dépôt.
 
 
+1. CE QUI A CHANGÉ PAR RAPPORT À LA VERSION 2
 -------------------------------------------------
-1. CE QUI A CHANGÉ PAR RAPPORT À LA VERSION 1
--------------------------------------------------
-- E-mail info@ds-digital.ch relié partout (formulaire, contact, footer, 404).
-- Aperçus RÉELS des sites réalisés (captures générées automatiquement).
-- Photos professionnelles (banque libre de droits Pexels).
-- Polices réellement chargées (Inter + Instrument Serif). Avant, "Inter"
-  était déclarée dans le CSS mais jamais téléchargée : le site s'affichait
-  avec la police système.
-- Section "Packs sites web" : carrousel de 3 cartes tarifaires
-  (Essentiel / Pro / Premium). Le Pack Pro s'affiche au centre au
-  chargement, les deux autres dépassent sur les côtés en plus clair.
-  Flèches, points, clavier et balayage du doigt. Tous les boutons
-  pointent vers la section Contact.
-- Nouvelle section FAQ et bandeau d'appel à l'action.
-- Menu mobile plein écran, barre de progression de lecture, bouton retour en haut.
-- SEO : Open Graph, Twitter Card, données structurées entreprise + FAQ,
-  balises alt descriptives, sitemap daté.
-- Accessibilité : lien d'évitement, focus visible, aria, prefers-reduced-motion.
-- Anti-spam : champ piège invisible dans le formulaire.
+- Hero en 3D temps réel (Three.js) : le monogramme « DS. » du logo,
+  extrudé en relief, avec la sphère dorée et un anneau or. Il suit la
+  souris et réagit au défilement. Sur mobile il se place au-dessus du titre.
+- Direction artistique sombre et or, alignée sur le logo.
+- Nouvelle section « Services » (6 métiers) : chaque bouton « Devis »
+  pré-sélectionne le bon service dans le formulaire.
+- Section « Réalisations » ajoutée (elle manquait alors que le menu y
+  renvoyait) : tytoo.ch, fit2010.ch, delta-view.ch, dymatec.ch, avec
+  cartes qui s'inclinent en 3D au survol.
+- Packs : listes raccourcies + « Tout ce qui est inclus » dépliable.
+  Sur mobile, défilement horizontal qui s'ouvre sur le Pack Pro.
+- Bouton « Demander un devis » flottant sur mobile.
+- SEO : image de partage 1200x630 (assets/og-image.jpg), données
+  structurées regroupées (entreprise + site + page + FAQ), langue fr-CH,
+  région géographique, sitemap daté.
+- Performance : la 3D se charge après le contenu, ne tourne que lorsque
+  le hero est visible, et s'arrête si l'onglet est caché.
+- Accessibilité : contenu lisible sans la 3D, prefers-reduced-motion
+  respecté (image fixe), focus visible, lien d'évitement.
+- Plus aucune photo Pexels : le site ne charge que tes propres images.
 
 
+2. MODIFIER LA SCÈNE 3D (optionnel)
 -------------------------------------------------
-2. MISE EN LIGNE
--------------------------------------------------
-1. Ouvre ton dépôt GitHub.
-2. Envoie LE CONTENU de ce dossier à la racine du dépôt
-   (index.html doit être visible directement à la racine).
-3. Settings > Pages > Source : Deploy from a branch.
-4. Branch : main   /   Folder : / (root)   >   Save.
-5. Custom domain : ds-digital.ch
-6. Active "Enforce HTTPS" dès que GitHub le propose.
+Les sources sont dans src/ (scene.js, entry.js, ds-glyphs.json).
+Après une modification :
+     npm install
+     npm run build
+Cela régénère assets/js/scene.min.js. Pense à l'envoyer sur GitHub.
+src/extract-glyphs.cjs a servi à extraire le tracé des lettres
+« DS » depuis la police Montserrat (déjà fait, rien à relancer).
 
 
--------------------------------------------------
 3. LE FORMULAIRE
 -------------------------------------------------
-Le formulaire est relié à Formspree et envoie les demandes directement
-vers la boîte configurée sur le formulaire Formspree.
-
-Endpoint actuellement utilisé :
-       https://formspree.io/f/xzebjypp
-
-Si tu changes de formulaire Formspree, remplace simplement la valeur
-formspreeEndpoint dans site-config.js et l’attribut action du formulaire
-dans index.html.
+Relié à Formspree : https://formspree.io/f/xzebjypp
+Pour changer : formspreeEndpoint dans site-config.js ET l'attribut
+action du formulaire dans index.html.
 
 
--------------------------------------------------
 4. AJOUTER UNE RÉALISATION
 -------------------------------------------------
-Ouvre index.html, section "RÉALISATIONS".
-Un bloc modèle est encadré par les commentaires :
-       ▼▼ MODÈLE DE PROJET ▼▼   ...   ▲▲ FIN DU MODÈLE ▲▲
+Dans index.html, section « 02 RÉALISATIONS », copie un bloc
+<article class="project"> ... </article> et remplace :
+  - l'adresse encodée dans src (%3A%2F%2F remplace "://")
+  - data-domain, le href, et le <small> de la barre du navigateur
+  - le titre <h3>, la phrase, l'étiquette <span class="pill">, le alt.
+Ajoute aussi le client dans le bandeau « Ils nous ont fait confiance ».
 
-Copie une carte <article class="project"> ... </article> et remplace :
-
-  a) L'ADRESSE DANS L'APERÇU (deux fois : dans l'URL et sous le navigateur)
-     src="https://s.wordpress.com/mshots/v1/https%3A%2F%2FMONSITE.CH?w=1200&amp;h=900"
-     <small>monsite.ch</small>
-     Les caractères %3A%2F%2F remplacent "://". Pour un domaine avec www :
-     https%3A%2F%2Fwww.monsite.ch
-
-  b) Le titre <h3>, le texte, l'étiquette <span class="pill">, l'année.
-  c) Le lien "Voir le site" href="https://monsite.ch"
-  d) Le texte alt de l'image.
-
-Garde UNE SEULE carte avec la classe "project-featured" (la grande).
-
-Ajoute aussi le nom du client dans le bandeau de confiance
-(section "BANDEAU CONFIANCE") si tu veux le voir apparaître en haut.
-
-NOTE SUR LES APERÇUS : la toute première fois qu'un site est demandé, le
-service met quelques secondes à générer la capture (une animation grise
-s'affiche pendant ce temps). Recharge la page une fois : l'image est
-ensuite mise en cache et s'affiche instantanément.
+Les aperçus viennent du service mShots de WordPress.com. La toute
+première demande peut prendre quelques secondes ; recharge une fois.
 
 
+5. PRIX DES PACKS
 -------------------------------------------------
-4 bis. LE CARROUSEL D'APERÇUS (en haut de page)
+Section « 03 PACKS ». Si tu changes un prix, change-le aussi dans les
+données structurées en haut de index.html (minPrice) et dans <title>.
+
+
+6. COORDONNÉES
 -------------------------------------------------
-Dans index.html, cherche le commentaire "CARROUSEL D'APERÇUS".
-Pour ajouter un site au défilement, copie une ligne <img> et
-renseigne trois valeurs :
-    data-url   = le domaine affiché dans la barre du navigateur
-    data-link  = l'adresse complète du site
-    src        = la même adresse encodée (%3A%2F%2F remplace "://")
-Ajoute ensuite un <button class="sc-dot"> de plus juste en dessous.
-
-Le carrousel défile tout seul toutes les 6 secondes, se met en pause
-au survol, se pilote aux flèches, aux points, au clavier (← →)
-et au balayage du doigt sur mobile.
+site-config.js : contactEmail, phone, instagram, facebook, linkedin.
+Un téléphone ou un réseau renseigné apparaît automatiquement.
 
 
--------------------------------------------------
-4 ter. MODIFIER LES PACKS ET LES PRIX
--------------------------------------------------
-Dans index.html, section "PACKS SITES WEB".
-Chaque pack est un bloc <article class="pack">.
-
-  - Le prix se trouve dans <p class="pack-price"> :
-        <small>Dès</small><strong>750</strong><em>CHF</em>
-  - Chaque ligne de la liste est un simple <li>.
-    La coche dorée est ajoutée automatiquement par le CSS.
-  - Pour griser une mention comme "si nécessaire",
-    entoure-la de <i>...</i>.
-  - La carte mise en avant porte la classe "pack-featured"
-    et contient <span class="pack-badge">Le plus choisi</span>.
-    Ne mets cette classe que sur UNE seule carte : c'est elle que
-    le carrousel affiche au centre à l'ouverture de la page.
-
-  - Si tu ajoutes ou retires un pack, ajoute ou retire aussi un
-    <button class="packs-dot"> dans le bloc "packs-dots" juste
-    en dessous, sinon il manquera un point de navigation.
-
-  - Largeur des cartes : variable --pack-w dans style.css
-    (.packs-slider). Augmente la valeur maximale pour des cartes
-    plus larges et des voisines moins visibles sur les côtés.
-
-Si tu changes un prix, pense à le changer aussi dans les données
-structurées en haut du fichier (bloc "hasOfferCatalog", champ minPrice)
-et dans la balise <title>, sinon Google affichera l'ancien montant.
-
-
--------------------------------------------------
-5. CHANGER LES COORDONNÉES
--------------------------------------------------
-Tout est dans site-config.js :
-  contactEmail, phone, instagram, facebook, linkedin.
-Un téléphone ou un réseau renseigné apparaît automatiquement sur le site.
-Laisse la valeur vide pour ne rien afficher.
-
-
--------------------------------------------------
-5 bis. LE PORTRAIT DE LA SECTION "À PROPOS"
--------------------------------------------------
-Fichiers : assets/darko-portrait.webp (1000x1250)
-           assets/darko-portrait-600.webp (version légère mobile)
-
-La photo a été détourée puis reposée sur un fond sombre dégradé
-assorti à la section, avec un fondu vers le bas.
-
-Pour la remplacer plus tard : garde le même format portrait 4/5
-et le même fond sombre, sinon le fondu du bas ne collera plus.
-Les deux tailles doivent être régénérées ensemble (elles sont
-liées par l'attribut srcset dans index.html).
-
-
--------------------------------------------------
-6. IMAGES
--------------------------------------------------
-Les photos d'illustration viennent de Pexels (usage commercial libre,
-sans attribution obligatoire) et sont chargées depuis leur serveur.
-
-Quand tu auras tes propres photos (ton matériel, ton bureau, tes clients),
-remplace simplement les adresses https://images.pexels.com/... par
-assets/ma-photo.webp. Ce sera plus rapide et plus crédible.
-Garde les attributs width, height, loading et alt.
-
-
--------------------------------------------------
 7. À VÉRIFIER APRÈS PUBLICATION
 -------------------------------------------------
 [ ] Le formulaire arrive bien dans info@ds-digital.ch
-[ ] Les aperçus des sites s'affichent (recharger si première visite)
-[ ] Affichage sur ton téléphone (menu, formulaire, aperçus)
+[ ] La 3D s'affiche sur ton téléphone et ton ordinateur
+[ ] Les aperçus des réalisations s'affichent (recharger si première visite)
 [ ] Soumettre le sitemap dans Google Search Console
-[ ] Vérifier les données structurées : https://search.google.com/test/rich-results
+[ ] Tester les données structurées : https://search.google.com/test/rich-results
+[ ] Tester l'image de partage : https://www.opengraph.xyz/
