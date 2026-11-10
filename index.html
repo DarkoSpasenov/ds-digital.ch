@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Relief — Studio web suisse, sites internet en 3D</title>
-<meta name="description" content="Relief est un studio web suisse fondé par Darko Spasenov. Des sites internet rapides, beaux et qui sortent de l'écran.">
-<meta name="theme-color" content="#F4F2EE">
+<title>Relief — Studio web suisse, des sites qui prennent de la hauteur</title>
+<meta name="description" content="Relief est un studio web suisse fondé par Darko Spasenov. Des sites internet beaux, rapides et sur mesure.">
+<meta name="theme-color" content="#EAF3F8">
 <link rel="canonical" href="https://ds-digital.ch/">
 <link rel="icon" href="assets/logo-relief.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Relief — Des sites qui sortent de l'écran">
-<meta property="og:description" content="Studio web suisse. Sites vitrines, boutiques et refontes en 3D.">
+<meta property="og:title" content="Relief — Des sites qui prennent de la hauteur">
+<meta property="og:description" content="Studio web suisse. Création de sites internet sur mesure.">
 <meta property="og:image" content="https://ds-digital.ch/assets/og-image.jpg">
 <link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
@@ -33,7 +33,7 @@
       <span>relief<b>.</b></span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      <a href="#showroom">Réalisations</a>
+      <a href="#sommets">Réalisations</a>
       <a href="#studio">Studio</a>
       <a href="#methode">Méthode</a>
     </nav>
@@ -41,7 +41,7 @@
     <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-burger><span></span><span></span></button>
   </div>
   <div class="mobile-menu" data-menu hidden>
-    <a href="#showroom">Réalisations</a>
+    <a href="#sommets">Réalisations</a>
     <a href="#studio">Studio</a>
     <a href="#methode">Méthode</a>
     <a href="#contact">Contact</a>
@@ -50,105 +50,120 @@
 
 <main id="main">
 
-  <!-- HERO ─ scène WebGL : les sites flottent en 3D -->
+  <!-- HERO ─ paysage alpin en WebGL -->
   <section class="hero" id="top">
-    <div class="hero-bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid-floor"></i></div>
+    <div class="hero-sky" aria-hidden="true"><i class="sun"></i></div>
+    <canvas class="hero-canvas" data-hero-canvas aria-hidden="true"></canvas>
+    <div class="hero-fallback" aria-hidden="true"></div>
     <div class="wrap hero-in">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span>Studio web · Fribourg, Suisse</p>
-        <h1 class="hero-title">Des sites qui <em>sortent</em> de l’écran.</h1>
+        <p class="eyebrow"><span class="blaze" aria-hidden="true"></span>Studio web · Fribourg, Suisse</p>
+        <h1 class="hero-title">Des sites qui prennent de la <em>hauteur.</em></h1>
         <p class="hero-sub">On crée des sites internet beaux, rapides et pensés pour vous apporter des clients.</p>
         <div class="hero-cta">
-          <a class="btn btn-grad" href="#contact">Parler de mon projet <span aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="#showroom">Voir nos sites</a>
+          <a class="btn btn-red" href="#contact">Parler de mon projet <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#sommets">Voir nos sites</a>
         </div>
-        <ul class="hero-stats" aria-label="En bref">
-          <li><b>100%</b><span>sur mesure</span></li>
-          <li><b>Mobile</b><span>d’abord</span></li>
-          <li><b>2</b><span>créateurs dédiés</span></li>
-        </ul>
-      </div>
-      <div class="hero-stage" data-stage>
-        <canvas class="hero-canvas" data-hero-canvas aria-label="Aperçu en 3D de sites réalisés par Relief : fit2010.ch, delta-view.ch et dymatec.ch" role="img"></canvas>
-        <!-- Repli sans WebGL -->
-        <div class="hero-fallback" aria-hidden="true">
-          <img src="assets/work/delta-view-640.webp" alt="" width="640" height="400">
-          <img src="assets/work/fit2010-640.webp" alt="" width="640" height="400">
-          <img src="assets/work/dymatec-640.webp" alt="" width="640" height="400">
-        </div>
-        <p class="drag-hint" aria-hidden="true"><span>⟲</span> Bougez la souris</p>
       </div>
     </div>
-    <a class="scroll-cue" href="#showroom" aria-label="Défiler vers les réalisations"><span></span></a>
+    <a class="scroll-cue" href="#sommets" aria-label="Défiler vers les réalisations"><span></span></a>
   </section>
 
   <!-- BANDE CLIENTS -->
   <div class="marquee" aria-label="Ils nous font confiance">
     <div class="marquee-track">
-      <span>fit2010.ch</span><i>✦</i><span>delta-view.ch</span><i>✦</i><span>tytoo.ch</span><i>✦</i><span>dymatec.ch</span><i>✦</i>
-      <span>fit2010.ch</span><i>✦</i><span>delta-view.ch</span><i>✦</i><span>tytoo.ch</span><i>✦</i><span>dymatec.ch</span><i>✦</i>
+      <span>fit2010.ch</span><i>▲</i><span>delta-view.ch</span><i>▲</i><span>tytoo.ch</span><i>▲</i><span>dymatec.ch</span><i>▲</i>
+      <span>fit2010.ch</span><i>▲</i><span>delta-view.ch</span><i>▲</i><span>tytoo.ch</span><i>▲</i><span>dymatec.ch</span><i>▲</i>
     </div>
   </div>
 
-  <!-- SHOWROOM 3D ─ carrousel en relief -->
-  <section class="section showroom" id="showroom">
+  <!-- RÉALISATIONS ─ un ordinateur 3D qui s'ouvre pour chaque site -->
+  <section class="section sommets" id="sommets">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow"><span class="dot"></span>Réalisations</p>
-        <h2 class="sec-title">Nos sites, <em>en relief.</em></h2>
-        <p class="sec-sub">Faites tourner le showroom. Cliquez pour visiter le site.</p>
+        <p class="eyebrow"><span class="blaze" aria-hidden="true"></span>Nos sommets</p>
+        <h2 class="sec-title">Chaque site, un <em>sommet atteint.</em></h2>
+        <p class="sec-sub">Quatre sites créés par notre studio. Cliquez pour les visiter.</p>
       </div>
-    </div>
 
-    <div class="carousel" data-carousel>
-      <div class="carousel-stage">
+      <div class="trail">
         <!--
-          Pour ajouter une réalisation : copier un <article class="slide"> et
+          Pour ajouter une réalisation : copier un <article class="climb"> et
           mettre la capture (1280×800, .webp) dans assets/work/.
         -->
-        <article class="slide" data-name="fit2010" data-tag="Salle de sport" data-desc="Deux salles à Fribourg et Neuchâtel, abonnement en ligne." data-url="https://fit2010.ch">
-          <a href="https://fit2010.ch" target="_blank" rel="noopener" class="device" tabindex="-1">
-            <span class="device-bar" aria-hidden="true"><i></i><i></i><i></i><small>fit2010.ch</small></span>
-            <img src="assets/work/fit2010.webp" alt="Site fit2010.ch réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
-            <span class="glare" aria-hidden="true"></span>
+        <article class="climb" data-climb>
+          <a class="laptop" href="https://fit2010.ch" target="_blank" rel="noopener" aria-label="Visiter fit2010.ch">
+            <span class="laptop-3d">
+              <span class="laptop-lid"><span class="laptop-screen">
+                <img src="assets/work/fit2010.webp" alt="Page d’accueil du site fit2010.ch, réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
+              </span></span>
+              <span class="laptop-base" aria-hidden="true"></span>
+            </span>
           </a>
+          <div class="climb-copy">
+            <p class="summit"><span class="blaze" aria-hidden="true"></span>Sommet 01</p>
+            <h3>fit2010</h3>
+            <span class="pill">Salle de sport</span>
+            <p>Deux salles à Fribourg et Neuchâtel, abonnement en ligne.</p>
+            <a class="link-arrow" href="https://fit2010.ch" target="_blank" rel="noopener">fit2010.ch ↗</a>
+          </div>
         </article>
-        <article class="slide" data-name="Delta View" data-tag="Photo immobilière" data-desc="Studio visuel immobilier : photo, film, drone et home staging." data-url="https://delta-view.ch">
-          <a href="https://delta-view.ch" target="_blank" rel="noopener" class="device" tabindex="-1">
-            <span class="device-bar" aria-hidden="true"><i></i><i></i><i></i><small>delta-view.ch</small></span>
-            <img src="assets/work/delta-view.webp" alt="Site delta-view.ch réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
-            <span class="glare" aria-hidden="true"></span>
-          </a>
-        </article>
-        <article class="slide" data-name="Tytoo" data-tag="Logiciel SaaS" data-desc="Logiciel de planning pour PME." data-url="https://tytoo.ch">
-          <a href="https://tytoo.ch" target="_blank" rel="noopener" class="device" tabindex="-1">
-            <span class="device-bar" aria-hidden="true"><i></i><i></i><i></i><small>tytoo.ch</small></span>
-            <!-- Capture à ajouter : assets/work/tytoo.webp (1280×800), puis remplacer ce bloc par une <img> -->
-            <span class="shot-placeholder"><b>tytoo<em>.ch</em></b><small>Planning pour PME</small></span>
-            <span class="glare" aria-hidden="true"></span>
-          </a>
-        </article>
-        <article class="slide" data-name="Dymatec" data-tag="Artisan" data-desc="Sanitaire, chauffage, ventilation et dépannage 24/7." data-url="https://dymatec.ch">
-          <a href="https://dymatec.ch" target="_blank" rel="noopener" class="device" tabindex="-1">
-            <span class="device-bar" aria-hidden="true"><i></i><i></i><i></i><small>dymatec.ch</small></span>
-            <img src="assets/work/dymatec.webp" alt="Site dymatec.ch réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
-            <span class="glare" aria-hidden="true"></span>
-          </a>
-        </article>
-      </div>
-      <div class="floor" aria-hidden="true"></div>
 
-      <div class="wrap carousel-ui">
-        <button class="round-btn" type="button" data-prev aria-label="Site précédent">←</button>
-        <div class="slide-info" aria-live="polite">
-          <span class="pill" data-info-tag>Salle de sport</span>
-          <h3 data-info-name>fit2010</h3>
-          <p data-info-desc>Deux salles à Fribourg et Neuchâtel, abonnement en ligne.</p>
-          <a class="link-arrow" data-info-url href="https://fit2010.ch" target="_blank" rel="noopener">Visiter le site ↗</a>
-        </div>
-        <button class="round-btn" type="button" data-next aria-label="Site suivant">→</button>
+        <article class="climb" data-climb>
+          <a class="laptop" href="https://delta-view.ch" target="_blank" rel="noopener" aria-label="Visiter delta-view.ch">
+            <span class="laptop-3d">
+              <span class="laptop-lid"><span class="laptop-screen">
+                <img src="assets/work/delta-view.webp" alt="Page d’accueil du site delta-view.ch, réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
+              </span></span>
+              <span class="laptop-base" aria-hidden="true"></span>
+            </span>
+          </a>
+          <div class="climb-copy">
+            <p class="summit"><span class="blaze" aria-hidden="true"></span>Sommet 02</p>
+            <h3>Delta View</h3>
+            <span class="pill">Photo immobilière</span>
+            <p>Studio visuel immobilier : photo, film, drone et home staging.</p>
+            <a class="link-arrow" href="https://delta-view.ch" target="_blank" rel="noopener">delta-view.ch ↗</a>
+          </div>
+        </article>
+
+        <article class="climb" data-climb>
+          <a class="laptop" href="https://tytoo.ch" target="_blank" rel="noopener" aria-label="Visiter tytoo.ch">
+            <span class="laptop-3d">
+              <span class="laptop-lid"><span class="laptop-screen">
+                <!-- Capture à ajouter : assets/work/tytoo.webp (1280×800), puis remplacer ce bloc par une <img> -->
+                <span class="shot-placeholder"><b>tytoo<em>.ch</em></b><small>Planning pour PME</small></span>
+              </span></span>
+              <span class="laptop-base" aria-hidden="true"></span>
+            </span>
+          </a>
+          <div class="climb-copy">
+            <p class="summit"><span class="blaze" aria-hidden="true"></span>Sommet 03</p>
+            <h3>Tytoo</h3>
+            <span class="pill">Logiciel SaaS</span>
+            <p>Logiciel de planning pour PME.</p>
+            <a class="link-arrow" href="https://tytoo.ch" target="_blank" rel="noopener">tytoo.ch ↗</a>
+          </div>
+        </article>
+
+        <article class="climb" data-climb>
+          <a class="laptop" href="https://dymatec.ch" target="_blank" rel="noopener" aria-label="Visiter dymatec.ch">
+            <span class="laptop-3d">
+              <span class="laptop-lid"><span class="laptop-screen">
+                <img src="assets/work/dymatec.webp" alt="Page d’accueil du site dymatec.ch, réalisé par Relief" width="1280" height="800" loading="lazy" decoding="async">
+              </span></span>
+              <span class="laptop-base" aria-hidden="true"></span>
+            </span>
+          </a>
+          <div class="climb-copy">
+            <p class="summit"><span class="blaze" aria-hidden="true"></span>Sommet 04</p>
+            <h3>Dymatec</h3>
+            <span class="pill">Artisan</span>
+            <p>Sanitaire, chauffage, ventilation et dépannage 24/7.</p>
+            <a class="link-arrow" href="https://dymatec.ch" target="_blank" rel="noopener">dymatec.ch ↗</a>
+          </div>
+        </article>
       </div>
-      <div class="dots" data-dots role="tablist" aria-label="Choisir une réalisation"></div>
     </div>
   </section>
 
@@ -156,8 +171,8 @@
   <section class="section studio" id="studio">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow"><span class="dot"></span>Le studio</p>
-        <h2 class="sec-title">Deux créateurs, <em>zéro intermédiaire.</em></h2>
+        <p class="eyebrow"><span class="blaze" aria-hidden="true"></span>Les guides</p>
+        <h2 class="sec-title">Deux guides, <em>une cordée.</em></h2>
         <p class="sec-sub">Vous parlez directement à ceux qui construisent votre site.</p>
       </div>
 
@@ -168,7 +183,7 @@
               <img src="assets/darko-portrait-600.webp" alt="Darko Spasenov" width="600" height="750" loading="lazy" decoding="async">
             </div>
             <div class="member-body">
-              <span class="pill pill-violet">Fondateur</span>
+              <span class="pill pill-red">Fondateur</span>
               <h3>Darko Spasenov</h3>
               <p>Fondateur &amp; créateur de sites. Direction artistique, design et développement.</p>
             </div>
@@ -184,7 +199,7 @@
               <span>BS</span>
             </div>
             <div class="member-body">
-              <span class="pill pill-pink">Créateur web</span>
+              <span class="pill pill-green">Créateur web</span>
               <h3>Brois Stankovski</h3>
               <p>Créateur de sites. Intégration, mise en ligne et suivi de vos projets.</p>
             </div>
@@ -200,25 +215,25 @@
   <section class="section method" id="methode">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow"><span class="dot"></span>Méthode</p>
-        <h2 class="sec-title">En ligne en <em>trois étapes.</em></h2>
+        <p class="eyebrow"><span class="blaze" aria-hidden="true"></span>L’ascension</p>
+        <h2 class="sec-title">Au sommet en <em>trois étapes.</em></h2>
       </div>
       <ol class="steps">
         <li class="step" data-tilt>
-          <img class="step-cube" src="assets/logo-relief.svg" alt="" width="60" height="60" aria-hidden="true">
-          <span class="step-n">01</span>
+          <svg class="step-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 40 24 8l20 32Z" fill="#DA291C"/><path d="M24 22 14 40h20Z" fill="#fff"/><path d="M2 40h44" stroke="#0F1B26" stroke-width="3" stroke-linecap="round"/></svg>
+          <span class="step-n">01 · Camp de base</span>
           <h3>On discute</h3>
           <p>Un appel pour comprendre votre activité et vos objectifs.</p>
         </li>
         <li class="step" data-tilt>
-          <img class="step-cube" src="assets/logo-relief.svg" alt="" width="60" height="60" aria-hidden="true">
-          <span class="step-n">02</span>
+          <svg class="step-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M2 42 18 14l8 12 6-8 14 24Z" fill="#2F6B4A"/><path d="M8 40c8-2 6-8 14-9s6-7 12-9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 5"/></svg>
+          <span class="step-n">02 · La montée</span>
           <h3>On crée</h3>
           <p>Une maquette sur mesure, ajustée avec vous jusqu’au bon résultat.</p>
         </li>
         <li class="step" data-tilt>
-          <img class="step-cube" src="assets/logo-relief.svg" alt="" width="60" height="60" aria-hidden="true">
-          <span class="step-n">03</span>
+          <svg class="step-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M2 44 24 12l22 32Z" fill="#7C8A99"/><path d="M24 12 16.5 23l4.5 3 3-3 3.5 3.5 4-3.5Z" fill="#fff"/><path d="M24 12V2" stroke="#0F1B26" stroke-width="2.5" stroke-linecap="round"/><path d="M24 2h10v7H24Z" fill="#DA291C"/></svg>
+          <span class="step-n">03 · Le sommet</span>
           <h3>On lance</h3>
           <p>Mise en ligne, référencement Google de base et suivi après lancement.</p>
         </li>
@@ -231,8 +246,8 @@
     <div class="wrap">
       <div class="contact-card">
         <div class="contact-copy">
-          <p class="eyebrow eyebrow-light"><span class="dot"></span>Contact</p>
-          <h2 class="sec-title">Votre site mérite <em>du relief.</em></h2>
+          <p class="eyebrow eyebrow-light"><span class="blaze" aria-hidden="true"></span>Contact</p>
+          <h2 class="sec-title">Prêt pour l’ascension&nbsp;?</h2>
           <p>Décrivez votre projet en deux lignes. On vous répond rapidement.</p>
           <a class="contact-mail" data-email href="mailto:info@ds-digital.ch">info@ds-digital.ch</a>
         </div>
@@ -242,7 +257,7 @@
           <label><span>E-mail</span><input name="email" type="email" autocomplete="email" required></label>
           <label><span>Votre projet</span><textarea name="message" rows="4" required placeholder="Ex. : un site vitrine pour mon restaurant"></textarea></label>
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
-          <button class="btn btn-grad" type="submit">Envoyer <span aria-hidden="true">→</span></button>
+          <button class="btn btn-white" type="submit">Envoyer <span aria-hidden="true">→</span></button>
           <p class="form-status" data-form-status role="status"></p>
         </form>
       </div>

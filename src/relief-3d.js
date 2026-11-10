@@ -1,244 +1,225 @@
 /*
-  RELIEF — scène 3D du hero (three.js)
+  RELIEF — paysage alpin 3D du hero (three.js)
   Source lisible. Le fichier servi est assets/relief-3d.min.js (voir README.txt pour le build).
-  Les écrans flottants affichent les captures de nos réalisations ;
-  un clic sur un écran ouvre le site.
+  Un massif généré par du bruit, un sommet principal avec le drapeau suisse,
+  des sapins, un lac, des nuages et une télécabine.
 */
 import {
-  WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, PlaneGeometry, SphereGeometry,
-  TorusGeometry, CapsuleGeometry, MeshPhysicalMaterial, MeshBasicMaterial, CanvasTexture,
-  PMREMGenerator, ACESFilmicToneMapping, SRGBColorSpace, DirectionalLight, PointLight,
-  Raycaster, Vector2, MathUtils, Color, IcosahedronGeometry
+  WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, PlaneGeometry, BoxGeometry, ConeGeometry,
+  CylinderGeometry, IcosahedronGeometry, MeshStandardMaterial, MeshBasicMaterial, CanvasTexture,
+  InstancedMesh, Object3D, Fog, Color, HemisphereLight, DirectionalLight, BufferAttribute,
+  BufferGeometry, Line, LineBasicMaterial, Vector3, SRGBColorSpace, NoToneMapping, DoubleSide, MathUtils
 } from 'three';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-
-const SITES = [
-  { img: 'assets/work/delta-view.webp', url: 'https://delta-view.ch', domain: 'delta-view.ch',
-    pos: [-2.25, 0.95, -1.7], rot: [0.04, 0.5, 0.02], s: 0.92 },
-  { img: 'assets/work/fit2010.webp', url: 'https://fit2010.ch', domain: 'fit2010.ch',
-    pos: [0.15, -0.35, 0.5], rot: [0.06, -0.2, 0], s: 1.0 },
-  { img: 'assets/work/dymatec.webp', url: 'https://dymatec.ch', domain: 'dymatec.ch',
-    pos: [2.25, 1.25, -2.6], rot: [0.02, -0.55, -0.02], s: 0.9 },
-];
+import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js';
 
 const canvas = document.querySelector('[data-hero-canvas]');
-const stage = document.querySelector('[data-stage]');
+const hero = document.querySelector('.hero');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function noWebGL() { document.documentElement.classList.add('no-webgl'); }
+/* ---------- relief ---------- */
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rand = rng(11);
+const simplex = new SimplexNoise({ random: rng(5) });
+const smooth = (x, a, b) => { const t = MathUtils.clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const PEAK = { x: 12, z: -24, h: 19 };
 
-if (canvas && stage) {
-  let renderer;
-  try {
-    renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  } catch (e) { renderer = null; }
-  if (!renderer) noWebGL(); else start(renderer);
+function ridged(x, z) {
+  let amp = 1, f = 1, sum = 0, norm = 0;
+  for (let i = 0; i < 5; i++) {
+    const v = 1 - Math.abs(simplex.noise(x * f, z * f));
+    sum += v * v * amp; norm += amp; amp *= 0.5; f *= 2.07;
+  }
+  return sum / norm;
+}
+
+function height(x, z) {
+  const valleyX = Math.sin(z * 0.06) * 5 - 3;
+  const side = smooth(Math.abs(x - valleyX), 3, 30);   // les versants de la vallée
+  const back = smooth(-z, -6, 50);                      // ça monte vers le fond
+  const west = x < valleyX ? 0.42 + 0.58 * smooth(-z, 25, 60) : 1;   // versant gauche plus bas : le titre reste sur le ciel
+  let h = ridged(x * 0.034, z * 0.034) * (side * 15 * west + back * 12 * (0.6 + 0.4 * west));
+  h += simplex.noise(x * 0.16, z * 0.16) * 0.35 * side;
+  // le sommet principal, une pyramide un peu asymétrique
+  const dx = x - PEAK.x, dz = z - PEAK.z;
+  const p = Math.max(0, 1 - Math.hypot(dx * (dx > 0 ? 1.15 : 0.9), dz * 1.1) / 12);
+  h += Math.pow(p, 1.75) * PEAK.h * (0.88 + 0.12 * simplex.noise(x * 0.3, z * 0.3));
+  return h;
 }
 
 function start(renderer) {
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
-  renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  renderer.toneMapping = NoToneMapping;
   renderer.outputColorSpace = SRGBColorSpace;
 
   const scene = new Scene();
-  const pmrem = new PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  const haze = new Color('#DCEBF3');
+  scene.fog = new Fog(haze, 42, 125);
+  const camera = new PerspectiveCamera(40, 1, 0.5, 260);
 
-  const camera = new PerspectiveCamera(35, 1, 0.1, 100);
-  const root = new Group();
-  scene.add(root);
+  scene.add(new HemisphereLight(0xeaf6ff, 0x7c9a78, 1.25));
+  const sun = new DirectionalLight(0xfff1dc, 2.3); sun.position.set(30, 38, 18); scene.add(sun);
 
-  const key = new DirectionalLight(0xffffff, 1.4); key.position.set(4, 6, 6); scene.add(key);
-  const rim = new PointLight(0xff4d8d, 30, 20); rim.position.set(-4, -2, 3); scene.add(rim);
-  const rim2 = new PointLight(0x5b2eff, 30, 20); rim2.position.set(4, 3, -2); scene.add(rim2);
+  const land = new Group();   // tout ce qui « pousse » à l'arrivée
+  scene.add(land);
 
-  /* ---------- écrans ---------- */
-  const W = 3.2, H = 2.16, D = 0.09;
-  const frameGeo = new RoundedBoxGeometry(W, H, D, 4, 0.09);
-  const frameMat = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.12 });
-  const screenGeo = new PlaneGeometry(W - 0.14, (W - 0.14) * (848 / 1280));
-  const items = [];
-  const screens = [];
+  /* terrain facetté, couleur par face selon l'altitude et la pente */
+  const SIZE = 150, SEG = 190;
+  let geo = new PlaneGeometry(SIZE, SIZE, SEG, SEG);
+  geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position;
+  for (let i = 0; i < pos.count; i++) pos.setY(i, height(pos.getX(i), pos.getZ(i)));
+  geo = geo.toNonIndexed();
+  geo.computeVertexNormals();
+  const P = geo.attributes.position, N = geo.attributes.normal;
+  const colors = new Float32Array(P.count * 3);
+  const c = new Color(), snow = new Color('#FFFFFF'), rock = new Color('#8E98A6'), rockDark = new Color('#6E7A89'),
+    alp = new Color('#9DBE77'), meadow = new Color('#6FB067'), shore = new Color('#B9C9A0');
+  for (let i = 0; i < P.count; i += 3) {
+    const h = (P.getY(i) + P.getY(i + 1) + P.getY(i + 2)) / 3;
+    const x = P.getX(i), z = P.getZ(i), ny = N.getY(i);
+    const snowLine = 7.6 + simplex.noise(x * 0.09, z * 0.09) * 1.6;
+    const r = rand();
+    if (h > snowLine && ny > 0.32) c.copy(snow).lerp(new Color('#E6F0F8'), r * 0.5);
+    else if (h > snowLine + 2.2) c.copy(snow).lerp(rock, 0.25 + r * 0.3);
+    else if (ny < 0.66 || h > 6.6) c.copy(rock).lerp(rockDark, r);
+    else if (h > 3.4) c.copy(alp).lerp(rock, smooth(h, 5, 7.5) * 0.6 + r * 0.08);
+    else if (h < 0.55) c.copy(shore).lerp(meadow, r * 0.4);
+    else c.copy(meadow).lerp(alp, smooth(h, 1, 3.4) + r * 0.1);
+    for (let k = 0; k < 3; k++) c.toArray(colors, (i + k) * 3);
+  }
+  geo.setAttribute('color', new BufferAttribute(colors, 3));
+  land.add(new Mesh(geo, new MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.95, metalness: 0 })));
 
-  SITES.forEach((site, i) => {
+  /* lac */
+  const lake = new Mesh(new PlaneGeometry(SIZE, SIZE), new MeshStandardMaterial({ color: '#7FC3DD', roughness: 0.25, metalness: 0.15, transparent: true, opacity: 0.92 }));
+  lake.rotation.x = -Math.PI / 2; lake.position.y = 0.3;
+  scene.add(lake);
+
+  /* sapins */
+  const spots = [];
+  for (let i = 0; i < 9000 && spots.length < 1300; i++) {
+    const x = (rand() - 0.5) * 110, z = rand() * 100 - 62;
+    const h = height(x, z);
+    if (h < 0.7 || h > 6.2) continue;
+    if (Math.abs(height(x + 0.6, z) - h) > 0.42 || Math.abs(height(x, z + 0.6) - h) > 0.42) continue;
+    if (simplex.noise(x * 0.07 + 40, z * 0.07) < -0.05) continue;
+    spots.push([x, h, z]);
+  }
+  const trees = new InstancedMesh(new ConeGeometry(0.34, 1.25, 5), new MeshStandardMaterial({ color: '#2F6B4A', flatShading: true, roughness: 1 }), spots.length);
+  const dummy = new Object3D();
+  spots.forEach((s, i) => {
+    const k = 0.7 + rand() * 0.9;
+    dummy.position.set(s[0], s[1] + 0.55 * k, s[2]); dummy.scale.setScalar(k); dummy.rotation.y = rand() * 6;
+    dummy.updateMatrix(); trees.setMatrixAt(i, dummy.matrix);
+  });
+  land.add(trees);
+
+  /* drapeau suisse au sommet */
+  const top = height(PEAK.x, PEAK.z);
+  const fc = document.createElement('canvas'); fc.width = fc.height = 64;
+  const fx = fc.getContext('2d'); fx.fillStyle = '#DA291C'; fx.fillRect(0, 0, 64, 64); fx.fillStyle = '#fff'; fx.fillRect(26, 12, 12, 40); fx.fillRect(12, 26, 40, 12);
+  const ftex = new CanvasTexture(fc); ftex.colorSpace = SRGBColorSpace;
+  const pole = new Mesh(new CylinderGeometry(0.035, 0.035, 2.4, 6), new MeshBasicMaterial({ color: '#33414E' }));
+  pole.position.set(PEAK.x, top + 1.1, PEAK.z);
+  const flagGeo = new PlaneGeometry(1.25, 1.25, 8, 1);
+  const flag = new Mesh(flagGeo, new MeshBasicMaterial({ map: ftex, side: DoubleSide, fog: false }));
+  flag.position.set(PEAK.x + 0.66, top + 1.65, PEAK.z);
+  land.add(pole, flag);
+  const flagBase = flagGeo.attributes.position.array.slice();
+
+  /* télécabine */
+  const A = new Vector3(-10, height(-10, 10) + 1.6, 10), B = new Vector3(2.5, height(2.5, -17) + 1.8, -17);
+  land.add(new Line(new BufferGeometry().setFromPoints([A, B]), new LineBasicMaterial({ color: '#33414E' })));
+  const cabin = new Group();
+  const box = new Mesh(new BoxGeometry(0.75, 0.6, 0.55), new MeshStandardMaterial({ color: '#DA291C', flatShading: true, roughness: 0.6 }));
+  box.position.y = -0.75;
+  const glass = new Mesh(new BoxGeometry(0.77, 0.2, 0.57), new MeshStandardMaterial({ color: '#EAF6FF', roughness: 0.2 }));
+  glass.position.y = -0.66;
+  const arm = new Mesh(new CylinderGeometry(0.025, 0.025, 0.5, 5), new MeshBasicMaterial({ color: '#33414E' }));
+  arm.position.y = -0.24;
+  cabin.add(box, glass, arm);
+  land.add(cabin);
+
+  /* nuages */
+  const cloudMat = new MeshStandardMaterial({ color: '#FFFFFF', emissive: '#C9D6DE', emissiveIntensity: 0.75, flatShading: true, roughness: 1, fog: false });
+  const puff = new IcosahedronGeometry(1, 1);
+  const clouds = [[-26, 15, -30, 1.5], [-4, 19, -46, 1.9], [30, 17.5, -40, 1.6], [20, 12, -6, 0.9], [-16, 10.5, -8, 0.8]].map(([x, y, z, s], i) => {
     const g = new Group();
-    const frame = new Mesh(frameGeo, frameMat);
-    const tex = makeScreenTexture(site, renderer);
-    const screen = new Mesh(screenGeo, new MeshBasicMaterial({ map: tex, toneMapped: false }));
-    screen.position.z = D / 2 + 0.002;
-    screen.userData.site = site;
-    g.add(frame, screen);
-    g.scale.setScalar(site.s);
-    root.add(g);
-    screens.push(screen);
-    items.push({ obj: g, base: site.pos, rot: site.rot, amp: 0.08, speed: 0.55 + i * 0.12, phase: i * 1.7, delay: 0.15 * i, screen: true });
+    for (let k = 0; k < 5; k++) {
+      const m = new Mesh(puff, cloudMat);
+      m.position.set((k - 2) * 1.25, (k % 2) * 0.4 - Math.abs(k - 2) * 0.22, (k % 3) * 0.5);
+      m.scale.set(1.5 - Math.abs(k - 2) * 0.32, 1 - Math.abs(k - 2) * 0.24, 1.1);
+      g.add(m);
+    }
+    g.position.set(x, y, z); g.scale.setScalar(s); g.userData = { x, speed: 0.25 + i * 0.07 };
+    scene.add(g);
+    return g;
   });
 
-  /* ---------- formes iridescentes ---------- */
-  const glossy = (c, extra = {}) => new MeshPhysicalMaterial(Object.assign({
-    color: new Color(c), roughness: 0.12, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.05,
-    iridescence: 0.9, iridescenceIOR: 1.5, iridescenceThicknessRange: [180, 620]
-  }, extra));
-
-  const shapes = [
-    { geo: new TorusGeometry(0.55, 0.22, 48, 120), mat: glossy('#6A3BFF'), pos: [-2.55, -1.45, 0.9], rot: [0.9, 0.3, 0] },
-    { geo: new SphereGeometry(0.5, 64, 64), mat: glossy('#FF4D8D'), pos: [2.6, -1.25, 1.1], rot: [0, 0, 0] },
-    { geo: new RoundedBoxGeometry(0.85, 0.85, 0.85, 6, 0.18), mat: glossy('#FFB38A'), pos: [-0.85, 2.05, -0.6], rot: [0.6, 0.7, 0.2] },
-    { geo: new CapsuleGeometry(0.17, 0.75, 12, 32), mat: glossy('#D9FF4A', { iridescence: 0.4 }), pos: [1.35, 1.95, 0.9], rot: [0.3, 0, 0.9] },
-    { geo: new IcosahedronGeometry(0.26, 0), mat: glossy('#5B2EFF', { flatShading: true }), pos: [0.9, -2.0, 1.6], rot: [0.2, 0.4, 0] },
-    { geo: new SphereGeometry(0.16, 32, 32), mat: glossy('#FFFFFF', { iridescence: 1 }), pos: [-1.3, -0.4, 1.9], rot: [0, 0, 0] },
-  ];
-  shapes.forEach((s, i) => {
-    const m = new Mesh(s.geo, s.mat);
-    root.add(m);
-    items.push({ obj: m, base: s.pos, rot: s.rot, amp: 0.18, speed: 0.7 + i * 0.15, phase: i * 2.1, delay: 0.35 + 0.08 * i, spin: 0.25 + (i % 3) * 0.12 });
-  });
-
-  /* ---------- ombre douce au sol ---------- */
-  const shadowCanvas = document.createElement('canvas');
-  shadowCanvas.width = shadowCanvas.height = 256;
-  const sc = shadowCanvas.getContext('2d');
-  const grd = sc.createRadialGradient(128, 128, 0, 128, 128, 128);
-  grd.addColorStop(0, 'rgba(60,30,140,0.35)'); grd.addColorStop(1, 'rgba(60,30,140,0)');
-  sc.fillStyle = grd; sc.fillRect(0, 0, 256, 256);
-  const shadow = new Mesh(new PlaneGeometry(9, 3.2), new MeshBasicMaterial({ map: new CanvasTexture(shadowCanvas), transparent: true, depthWrite: false }));
-  shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, -2.9, -0.5);
-  root.add(shadow);
-
-  /* ---------- taille / caméra ---------- */
-  let width = 1, height = 1;
+  /* ---------- cadrage ---------- */
+  let portrait = false;
   function resize() {
-    const r = stage.getBoundingClientRect();
-    width = Math.max(1, r.width); height = Math.max(1, r.height);
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    // reculer la caméra pour que toute la composition reste visible
-    const fitW = 7.4 / (2 * Math.tan(MathUtils.degToRad(camera.fov / 2)) * camera.aspect);
-    const fitH = 6.0 / (2 * Math.tan(MathUtils.degToRad(camera.fov / 2)));
-    camera.position.set(0, 0, MathUtils.clamp(Math.max(fitW, fitH), 8.6, 17));
+    const w = Math.max(1, hero.clientWidth), h = Math.max(1, hero.clientHeight);
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    portrait = camera.aspect < 0.9;
+    camera.fov = portrait ? 56 : 40;
     camera.updateProjectionMatrix();
   }
-  new ResizeObserver(resize).observe(stage);
+  new ResizeObserver(resize).observe(hero);
   resize();
 
-  /* ---------- interactions ---------- */
-  const pointer = new Vector2(0, 0);      // -1..1, pour la parallaxe
-  const ndc = new Vector2(9, 9);          // pour le survol
-  let dragging = false, dragX = 0, spin = 0, spinVel = 0, hovered = null, downAt = [0, 0];
-  const ray = new Raycaster();
-
+  const pointer = { x: 0, y: 0 }, eased = { x: 0, y: 0 };
   window.addEventListener('pointermove', (e) => {
-    pointer.set((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1);
-    const r = canvas.getBoundingClientRect();
-    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-    if (dragging) { const dx = e.clientX - dragX; dragX = e.clientX; spinVel = dx * 0.004; spin += spinVel; }
+    pointer.x = (e.clientX / window.innerWidth) * 2 - 1; pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
   }, { passive: true });
-  canvas.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') { dragging = true; dragX = e.clientX; downAt = [e.clientX, e.clientY]; } });
-  window.addEventListener('pointerup', () => { dragging = false; });
-  canvas.addEventListener('pointerleave', () => ndc.set(9, 9));
-  canvas.addEventListener('click', (e) => {
-    if (Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 6 && e.pointerType !== 'touch') return;
-    const r = canvas.getBoundingClientRect();
-    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-    ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(screens, false)[0];
-    if (hit) window.open(hit.object.userData.site.url, '_blank', 'noopener');
-  });
 
   /* ---------- boucle ---------- */
-  let visible = true, t0 = performance.now(), last = t0;
-  const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) loop(); }, { threshold: 0 });
-  io.observe(stage);
+  let visible = true, raf = 0;
+  const t0 = performance.now();
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) loop(); }).observe(hero);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) loop(); });
-
-  const easeOut = (x) => 1 - Math.pow(1 - MathUtils.clamp(x, 0, 1), 4);
-  let raf = 0;
+  const look = new Vector3();
 
   function frame(now) {
     raf = 0;
     const t = (now - t0) / 1000;
-    const dt = Math.min(0.05, (now - last) / 1000); last = now;
-    const heroH = stage.closest('.hero').offsetHeight || window.innerHeight;
-    const sp = MathUtils.clamp(window.scrollY / heroH, 0, 1);
+    const sp = MathUtils.clamp(window.scrollY / (hero.offsetHeight || 1), 0, 1);
 
-    // inertie de la rotation à la souris
-    if (!dragging) { spinVel *= 0.94; spin += spinVel; spin *= 0.985; }
+    // le relief sort de terre à l'arrivée
+    const k = reduce ? 1 : 1 - Math.pow(1 - MathUtils.clamp(t / 2.4, 0, 1), 4);
+    land.scale.y = 0.02 + 0.98 * k;
 
-    const tx = pointer.y * 0.12 + sp * 0.25;
-    const ty = pointer.x * 0.32 + spin + sp * 0.7;
-    root.rotation.x += (tx - root.rotation.x) * 0.06;
-    root.rotation.y += (ty - root.rotation.y) * 0.06;
-    root.position.y = sp * 1.6;
+    eased.x += (pointer.x - eased.x) * 0.04; eased.y += (pointer.y - eased.y) * 0.04;
+    if (portrait) {
+      camera.position.set(9 + eased.x * 1.2, 12 + sp * 6 - eased.y * 0.6, 47 - sp * 10);
+      look.set(PEAK.x - 1, 35.5 - sp * 8, PEAK.z);   // on vise haut : le massif reste sous le texte
+    } else {
+      camera.position.set(1 + eased.x * 2.2, 8.2 + sp * 7 - eased.y * 0.9, 40 - sp * 12);
+      look.set(-3.5 + eased.x * 1.2, 11.4 + sp * 2, -20);
+    }
+    camera.lookAt(look);
 
-    items.forEach((it) => {
-      const k = reduce ? 1 : easeOut((t - it.delay) / 1.6);
-      const spread = 1 + sp * 0.5;
-      const fl = reduce ? 0 : Math.sin(t * it.speed + it.phase) * it.amp;
-      it.obj.position.set(it.base[0] * spread, it.base[1] * spread + fl, it.base[2] - (1 - k) * 12);
-      if (it.spin) {
-        it.obj.rotation.set(it.rot[0] + t * it.spin * 0.6, it.rot[1] + t * it.spin, it.rot[2]);
-      } else {
-        it.obj.rotation.set(it.rot[0] + Math.sin(t * 0.4 + it.phase) * 0.03, it.rot[1] + (1 - k) * 1.2, it.rot[2]);
-      }
-      it.k = k;
-    });
-
-    // survol des écrans
-    ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(screens, false)[0];
-    const h = hit ? hit.object.parent : null;
-    if (h !== hovered) { hovered = h; canvas.style.cursor = h ? 'pointer' : ''; }
-    items.forEach((it) => {
-      if (!it.screen) return;
-      const target = it.obj === hovered ? 1.07 : 1;
-      const base = SITES[items.indexOf(it)].s;
-      const cur = it.obj.scale.x / base;
-      it.obj.scale.setScalar(base * (cur + (target - cur) * 0.12));
-    });
+    if (!reduce) {
+      clouds.forEach((g) => { g.position.x = g.userData.x + ((t * g.userData.speed) % 90); if (g.position.x > 55) g.position.x -= 110; });
+      const u = 0.5 - 0.5 * Math.cos(t * 0.16);
+      cabin.position.lerpVectors(A, B, u);
+      const arr = flagGeo.attributes.position.array;
+      for (let i = 0; i < arr.length; i += 3) { const d = flagBase[i] + 0.625; arr[i + 2] = Math.sin(d * 5 - t * 6) * 0.1 * d; }
+      flagGeo.attributes.position.needsUpdate = true;
+    } else cabin.position.lerpVectors(A, B, 0.45);
 
     renderer.render(scene, camera);
     if (visible && !document.hidden && !reduce) loop();
-    else if (reduce && t < 0.1) loop();
   }
   function loop() { if (!raf) raf = requestAnimationFrame(frame); }
   loop();
-  if (reduce) { window.addEventListener('pointermove', loop, { passive: true }); }
+  if (reduce) window.addEventListener('scroll', loop, { passive: true });
+  document.documentElement.classList.add('webgl-ready');
 }
 
-/* Compose une texture d'écran : barre de navigateur + capture du site. */
-function makeScreenTexture(site, renderer) {
-  const c = document.createElement('canvas');
-  c.width = 1280; c.height = 848;
-  const x = c.getContext('2d');
-  const tex = new CanvasTexture(c);
-  tex.colorSpace = SRGBColorSpace;
-  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-
-  const drawBar = () => {
-    x.fillStyle = '#F1EFF5'; x.fillRect(0, 0, 1280, 48);
-    ['#FF6B8F', '#FFC36B', '#7BE38A'].forEach((col, i) => { x.fillStyle = col; x.beginPath(); x.arc(28 + i * 22, 24, 7, 0, Math.PI * 2); x.fill(); });
-    x.fillStyle = '#FFFFFF';
-    roundRect(x, 520, 10, 240, 28, 14); x.fill();
-    x.fillStyle = '#615E6C'; x.font = '500 16px Inter, system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
-    x.fillText(site.domain, 640, 25);
-  };
-  // fond en attendant l'image
-  const g = x.createLinearGradient(0, 0, 1280, 848);
-  g.addColorStop(0, '#5B2EFF'); g.addColorStop(1, '#FF4D8D');
-  x.fillStyle = g; x.fillRect(0, 0, 1280, 848);
-  drawBar();
-
-  const img = new Image();
-  img.decoding = 'async';
-  img.onload = () => { x.drawImage(img, 0, 48, 1280, 800); drawBar(); tex.needsUpdate = true; };
-  img.src = site.img;
-  return tex;
-}
-
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+if (canvas && hero) {
+  let renderer = null;
+  try { renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) { /* pas de WebGL */ }
+  if (renderer) start(renderer); else document.documentElement.classList.add('no-webgl');
 }

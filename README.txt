@@ -5,14 +5,14 @@ Nouveau site 3D, refait de zéro. Aucun PHP, aucune base de données.
 
 FICHIERS
 --------
-index.html              Page d'accueil (hero 3D, showroom, studio, méthode, contact)
+index.html              Page d'accueil (Alpes en 3D, réalisations, studio, méthode, contact)
 mentions-legales.html   Mentions légales
 confidentialite.html    Confidentialité
 404.html                Page introuvable
 site-config.js          E-mail, réseaux, formulaire Formspree (le seul fichier à toucher pour les coordonnées)
 assets/relief.css       Tout le style (couleurs dans :root en haut du fichier)
-assets/relief-ui.js     Menu, carrousel 3D des réalisations, cartes inclinables, formulaire
-assets/relief-3d.min.js Scène 3D du hero (three.js), version compilée
+assets/relief-ui.js     Menu, ordinateurs 3D qui s'ouvrent, cartes inclinables, formulaire
+assets/relief-3d.min.js Paysage alpin 3D du hero (three.js), version compilée
 src/relief-3d.js        Source lisible de la scène 3D
 assets/work/            Captures des sites réalisés (1280×800, .webp)
 assets/fonts/           Polices Bricolage Grotesque + Inter, hébergées sur le site
@@ -20,11 +20,9 @@ assets/fonts/           Polices Bricolage Grotesque + Inter, hébergées sur le 
 AJOUTER UNE RÉALISATION
 -----------------------
 1. Mettre la capture dans assets/work/nom.webp (1280×800).
-2. Dans index.html, section SHOWROOM, copier un bloc <article class="slide"> et changer
-   data-name, data-tag, data-desc, data-url, le lien et l'image.
+2. Dans index.html, section RÉALISATIONS, copier un bloc <article class="climb"> et changer
+   le numéro du sommet, le nom, la catégorie, le texte, les liens et l'image.
    (tytoo.ch attend encore sa capture : remplacer le bloc .shot-placeholder par une <img>.)
-3. Pour l'afficher aussi dans la scène 3D du hero : ajouter une ligne dans SITES
-   au début de src/relief-3d.js, puis recompiler (voir ci-dessous).
 
 RECOMPILER LA SCÈNE 3D (seulement si src/relief-3d.js change)
 ------------------------------------------------------------
